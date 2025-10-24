@@ -7,6 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Plane, Mail, Lock, User } from "lucide-react";
 import { toast } from "sonner";
+import authBackground from "@/assets/auth-background.jpg";
 
 // 写死的测试用户
 const MOCK_USER = {
@@ -51,11 +52,19 @@ const Auth = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-subtle flex items-center justify-center p-4">
+    <div className="min-h-screen relative flex items-center justify-center p-4">
+      {/* 背景图片 */}
+      <div 
+        className="absolute inset-0 bg-cover bg-center"
+        style={{ backgroundImage: `url(${authBackground})` }}
+      >
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/40 via-background/60 to-accent/40 backdrop-blur-[2px]" />
+      </div>
+      
       {/* 背景装饰 */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-accent/10 rounded-full blur-3xl" />
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-primary/10 rounded-full blur-3xl" />
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-accent/5 rounded-full blur-3xl" />
+        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-primary/5 rounded-full blur-3xl" />
       </div>
 
       <div className="w-full max-w-md relative z-10">
@@ -67,7 +76,7 @@ const Auth = () => {
           <span className="text-3xl font-bold text-primary">SkyTrip</span>
         </div>
 
-        <Card className="border-border/50 shadow-elegant backdrop-blur-sm bg-background/95 animate-fade-in-up">
+        <Card className="border-border/50 shadow-elegant backdrop-blur-md bg-background/98 animate-fade-in-up">
           <CardHeader className="space-y-1">
             <CardTitle className="text-2xl font-bold text-center">欢迎回来</CardTitle>
             <CardDescription className="text-center">
