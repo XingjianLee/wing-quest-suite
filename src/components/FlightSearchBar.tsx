@@ -29,7 +29,7 @@ export default function FlightSearchBar() {
   };
 
   return (
-    <div className="w-full px-6 py-6">
+    <div className="w-full">
       <div className="w-full">
         <div className="bg-card rounded-xl shadow-card-hover p-6 border border-border/50">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-end">
