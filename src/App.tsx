@@ -9,6 +9,7 @@ import Auth from "./pages/Auth";
 import Dashboard from "./pages/Dashboard";
 import BookFlight from "./pages/BookFlight";
 import BookHotel from "./pages/BookHotel";
+import BookTicket from "./pages/BookTicket";
 import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
 
@@ -27,6 +28,7 @@ const App = () => (
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/book-flight" element={<BookFlight />} />
           <Route path="/book-hotel" element={<BookHotel />} />
+          <Route path="/book-ticket" element={<BookTicket />} />
           <Route path="/profile" element={<Profile />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
