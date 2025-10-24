@@ -12,7 +12,8 @@ export interface OrderPassenger {
   checkInStatus: "not_checked" | "checked";
 }
 
-export interface OrderItem {
+export interface FlightOrderItem {
+  type: "flight";
   flightNumber: string;
   airline: string;
   departureAirport: string;
@@ -26,6 +27,35 @@ export interface OrderItem {
   originalPrice: number;
   paidPrice: number;
 }
+
+export interface HotelOrderItem {
+  type: "hotel";
+  hotelName: string;
+  address: string;
+  city: string;
+  checkInDate: Date;
+  checkOutDate: Date;
+  nights: number;
+  roomType: string;
+  guests: OrderPassenger[];
+  originalPrice: number;
+  paidPrice: number;
+}
+
+export interface TicketOrderItem {
+  type: "ticket";
+  attractionName: string;
+  address: string;
+  city: string;
+  visitDate: Date;
+  ticketType: string;
+  quantity: number;
+  visitors: OrderPassenger[];
+  originalPrice: number;
+  paidPrice: number;
+}
+
+export type OrderItem = FlightOrderItem | HotelOrderItem | TicketOrderItem;
 
 export interface Order {
   orderNo: string;
@@ -75,7 +105,113 @@ const paymentMethodLabels = {
 
 const OrderCard = ({ order, onViewDetails }: OrderCardProps) => {
   const mainItem = order.items[0];
-  const totalPassengers = order.items.reduce((sum, item) => sum + item.passengers.length, 0);
+  
+  const getTotalPeople = () => {
+    return order.items.reduce((sum, item) => {
+      if (item.type === "flight") return sum + item.passengers.length;
+      if (item.type === "hotel") return sum + item.guests.length;
+      if (item.type === "ticket") return sum + item.visitors.length;
+      return sum;
+    }, 0);
+  };
+
+  const renderItemContent = () => {
+    if (mainItem.type === "flight") {
+      return (
+        <>
+          <div className="flex items-center gap-4">
+            <div className="flex-1">
+              <div className="flex items-center justify-between mb-2">
+                <div className="space-y-1">
+                  <div className="text-xl font-bold">{mainItem.departureCity}</div>
+                  <div className="text-xs text-muted-foreground">{mainItem.departureAirport}</div>
+                  <div className="text-sm">{format(mainItem.departureTime, "HH:mm", { locale: zhCN })}</div>
+                </div>
+                
+                <div className="flex flex-col items-center px-4">
+                  <Plane className="w-5 h-5 text-primary mb-1" />
+                  <div className="text-xs text-muted-foreground">{mainItem.flightNumber}</div>
+                  <div className="text-xs text-muted-foreground">{mainItem.airline}</div>
+                </div>
+
+                <div className="space-y-1 text-right">
+                  <div className="text-xl font-bold">{mainItem.arrivalCity}</div>
+                  <div className="text-xs text-muted-foreground">{mainItem.arrivalAirport}</div>
+                  <div className="text-sm">{format(mainItem.arrivalTime, "HH:mm", { locale: zhCN })}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="flex items-center gap-4 text-sm text-muted-foreground">
+            <div className="flex items-center gap-1">
+              <Calendar className="w-4 h-4" />
+              <span>{format(mainItem.departureTime, "MM月dd日", { locale: zhCN })}</span>
+            </div>
+            <div className="flex items-center gap-1">
+              <User className="w-4 h-4" />
+              <span>{mainItem.passengers.length} 位乘客</span>
+            </div>
+            <Badge variant="outline">{cabinClassLabels[mainItem.cabinClass]}</Badge>
+          </div>
+        </>
+      );
+    }
+
+    if (mainItem.type === "hotel") {
+      return (
+        <>
+          <div className="space-y-2">
+            <div className="flex items-start gap-3">
+              <MapPin className="w-5 h-5 text-primary mt-1" />
+              <div className="flex-1">
+                <div className="text-lg font-bold">{mainItem.hotelName}</div>
+                <div className="text-sm text-muted-foreground">{mainItem.address}</div>
+              </div>
+            </div>
+          </div>
+          <div className="flex items-center gap-4 text-sm text-muted-foreground">
+            <div className="flex items-center gap-1">
+              <Calendar className="w-4 h-4" />
+              <span>{format(mainItem.checkInDate, "MM月dd日", { locale: zhCN })} - {format(mainItem.checkOutDate, "MM月dd日", { locale: zhCN })}</span>
+            </div>
+            <span>{mainItem.nights} 晚</span>
+            <div className="flex items-center gap-1">
+              <User className="w-4 h-4" />
+              <span>{mainItem.guests.length} 位客人</span>
+            </div>
+            <Badge variant="outline">{mainItem.roomType}</Badge>
+          </div>
+        </>
+      );
+    }
+
+    if (mainItem.type === "ticket") {
+      return (
+        <>
+          <div className="space-y-2">
+            <div className="flex items-start gap-3">
+              <MapPin className="w-5 h-5 text-primary mt-1" />
+              <div className="flex-1">
+                <div className="text-lg font-bold">{mainItem.attractionName}</div>
+                <div className="text-sm text-muted-foreground">{mainItem.address}</div>
+              </div>
+            </div>
+          </div>
+          <div className="flex items-center gap-4 text-sm text-muted-foreground">
+            <div className="flex items-center gap-1">
+              <Calendar className="w-4 h-4" />
+              <span>{format(mainItem.visitDate, "yyyy年MM月dd日", { locale: zhCN })}</span>
+            </div>
+            <div className="flex items-center gap-1">
+              <User className="w-4 h-4" />
+              <span>{mainItem.quantity} 张门票</span>
+            </div>
+            <Badge variant="outline">{mainItem.ticketType}</Badge>
+          </div>
+        </>
+      );
+    }
+  };
 
   return (
     <Card className="hover:shadow-lg transition-shadow">
@@ -102,43 +238,7 @@ const OrderCard = ({ order, onViewDetails }: OrderCardProps) => {
       </CardHeader>
 
       <CardContent className="space-y-4">
-        {/* 主要航班信息 */}
-        <div className="flex items-center gap-4">
-          <div className="flex-1">
-            <div className="flex items-center justify-between mb-2">
-              <div className="space-y-1">
-                <div className="text-2xl font-bold">{mainItem.departureCity}</div>
-                <div className="text-xs text-muted-foreground">{mainItem.departureAirport}</div>
-                <div className="text-sm">{format(mainItem.departureTime, "HH:mm", { locale: zhCN })}</div>
-              </div>
-              
-              <div className="flex flex-col items-center px-4">
-                <Plane className="w-5 h-5 text-primary mb-1" />
-                <div className="text-xs text-muted-foreground">{mainItem.flightNumber}</div>
-                <div className="text-xs text-muted-foreground">{mainItem.airline}</div>
-              </div>
-
-              <div className="space-y-1 text-right">
-                <div className="text-2xl font-bold">{mainItem.arrivalCity}</div>
-                <div className="text-xs text-muted-foreground">{mainItem.arrivalAirport}</div>
-                <div className="text-sm">{format(mainItem.arrivalTime, "HH:mm", { locale: zhCN })}</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* 日期和舱位 */}
-        <div className="flex items-center gap-4 text-sm text-muted-foreground">
-          <div className="flex items-center gap-1">
-            <Calendar className="w-4 h-4" />
-            <span>{format(mainItem.departureTime, "yyyy年MM月dd日", { locale: zhCN })}</span>
-          </div>
-          <div className="flex items-center gap-1">
-            <User className="w-4 h-4" />
-            <span>{totalPassengers} 位乘客</span>
-          </div>
-          <Badge variant="outline">{cabinClassLabels[mainItem.cabinClass]}</Badge>
-        </div>
+        {renderItemContent()}
 
         {/* 支付信息 */}
         <div className="flex items-center justify-between pt-2 border-t">

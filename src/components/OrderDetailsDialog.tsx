@@ -10,7 +10,7 @@ import { Separator } from "@/components/ui/separator";
 import { Plane, Calendar, User, CreditCard, CheckCircle2, XCircle, MapPin, Clock } from "lucide-react";
 import { format } from "date-fns";
 import { zhCN } from "date-fns/locale";
-import { Order } from "./OrderCard";
+import { Order, FlightOrderItem, HotelOrderItem, TicketOrderItem } from "./OrderCard";
 
 interface OrderDetailsDialogProps {
   order: Order | null;
@@ -93,82 +93,204 @@ const OrderDetailsDialog = ({ order, open, onOpenChange }: OrderDetailsDialogPro
 
           <Separator />
 
-          {/* 航班信息 */}
+          {/* 订单项信息 */}
           {order.items.map((item, index) => (
             <div key={index} className="space-y-3">
-              <h3 className="font-semibold text-sm">航班 {index + 1}</h3>
-              
-              {/* 航线信息 */}
-              <div className="bg-muted/50 rounded-lg p-4">
-                <div className="flex items-center justify-between mb-4">
-                  <div className="space-y-1">
-                    <div className="text-2xl font-bold">{item.departureCity}</div>
-                    <div className="text-xs text-muted-foreground">{item.departureAirport}</div>
-                    <div className="text-sm font-medium">
-                      {format(item.departureTime, "yyyy-MM-dd HH:mm", { locale: zhCN })}
-                    </div>
-                  </div>
+              {item.type === "flight" && (
+                <>
+                  <h3 className="font-semibold text-sm">航班 {index + 1}</h3>
                   
-                  <div className="flex flex-col items-center px-4">
-                    <Plane className="w-6 h-6 text-primary mb-2" />
-                    <div className="text-sm font-medium">{item.flightNumber}</div>
-                    <div className="text-xs text-muted-foreground">{item.airline}</div>
-                    <Badge variant="outline" className="mt-2">{cabinClassLabels[item.cabinClass]}</Badge>
-                  </div>
+                  {/* 航线信息 */}
+                  <div className="bg-muted/50 rounded-lg p-4">
+                    <div className="flex items-center justify-between mb-4">
+                      <div className="space-y-1">
+                        <div className="text-2xl font-bold">{item.departureCity}</div>
+                        <div className="text-xs text-muted-foreground">{item.departureAirport}</div>
+                        <div className="text-sm font-medium">
+                          {format(item.departureTime, "yyyy-MM-dd HH:mm", { locale: zhCN })}
+                        </div>
+                      </div>
+                      
+                      <div className="flex flex-col items-center px-4">
+                        <Plane className="w-6 h-6 text-primary mb-2" />
+                        <div className="text-sm font-medium">{item.flightNumber}</div>
+                        <div className="text-xs text-muted-foreground">{item.airline}</div>
+                        <Badge variant="outline" className="mt-2">{cabinClassLabels[item.cabinClass]}</Badge>
+                      </div>
 
-                  <div className="space-y-1 text-right">
-                    <div className="text-2xl font-bold">{item.arrivalCity}</div>
-                    <div className="text-xs text-muted-foreground">{item.arrivalAirport}</div>
-                    <div className="text-sm font-medium">
-                      {format(item.arrivalTime, "yyyy-MM-dd HH:mm", { locale: zhCN })}
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* 乘客信息 */}
-              <div className="space-y-2">
-                <h4 className="text-sm font-medium text-muted-foreground">乘客信息</h4>
-                {item.passengers.map((passenger, pIndex) => (
-                  <div key={pIndex} className="flex items-center justify-between p-3 bg-background border rounded-lg">
-                    <div className="flex items-center gap-3">
-                      <User className="w-4 h-4 text-muted-foreground" />
-                      <div>
-                        <div className="font-medium">{passenger.name}</div>
-                        <div className="text-xs text-muted-foreground">
-                          身份证: {passenger.idCard.replace(/^(.{6})(.{8})(.{4})$/, "$1****$3")}
+                      <div className="space-y-1 text-right">
+                        <div className="text-2xl font-bold">{item.arrivalCity}</div>
+                        <div className="text-xs text-muted-foreground">{item.arrivalAirport}</div>
+                        <div className="text-sm font-medium">
+                          {format(item.arrivalTime, "yyyy-MM-dd HH:mm", { locale: zhCN })}
                         </div>
                       </div>
                     </div>
-                    <div className="flex items-center gap-3">
-                      {passenger.seatNumber && (
-                        <div className="text-sm">
-                          <span className="text-muted-foreground">座位: </span>
-                          <span className="font-medium">{passenger.seatNumber}</span>
+                  </div>
+
+                  {/* 乘客信息 */}
+                  <div className="space-y-2">
+                    <h4 className="text-sm font-medium text-muted-foreground">乘客信息</h4>
+                    {item.passengers.map((passenger, pIndex) => (
+                      <div key={pIndex} className="flex items-center justify-between p-3 bg-background border rounded-lg">
+                        <div className="flex items-center gap-3">
+                          <User className="w-4 h-4 text-muted-foreground" />
+                          <div>
+                            <div className="font-medium">{passenger.name}</div>
+                            <div className="text-xs text-muted-foreground">
+                              身份证: {passenger.idCard.replace(/^(.{6})(.{8})(.{4})$/, "$1****$3")}
+                            </div>
+                          </div>
                         </div>
+                        <div className="flex items-center gap-3">
+                          {passenger.seatNumber && (
+                            <div className="text-sm">
+                              <span className="text-muted-foreground">座位: </span>
+                              <span className="font-medium">{passenger.seatNumber}</span>
+                            </div>
+                          )}
+                          {passenger.checkInStatus === "checked" ? (
+                            <Badge variant="default">已值机</Badge>
+                          ) : (
+                            <Badge variant="outline">未值机</Badge>
+                          )}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* 价格信息 */}
+                  <div className="flex items-center justify-between text-sm">
+                    <span className="text-muted-foreground">
+                      {item.passengers.length} × {cabinClassLabels[item.cabinClass]}
+                    </span>
+                    <div className="flex items-center gap-3">
+                      {item.originalPrice > item.paidPrice && (
+                        <span className="line-through text-muted-foreground">¥{item.originalPrice}</span>
                       )}
-                      {passenger.checkInStatus === "checked" ? (
-                        <Badge variant="default">已值机</Badge>
-                      ) : (
-                        <Badge variant="outline">未值机</Badge>
-                      )}
+                      <span className="font-medium text-primary">¥{item.paidPrice}</span>
                     </div>
                   </div>
-                ))}
-              </div>
+                </>
+              )}
 
-              {/* 价格信息 */}
-              <div className="flex items-center justify-between text-sm">
-                <span className="text-muted-foreground">
-                  {item.passengers.length} × {cabinClassLabels[item.cabinClass]}
-                </span>
-                <div className="flex items-center gap-3">
-                  {item.originalPrice > item.paidPrice && (
-                    <span className="line-through text-muted-foreground">¥{item.originalPrice}</span>
-                  )}
-                  <span className="font-medium text-primary">¥{item.paidPrice}</span>
-                </div>
-              </div>
+              {item.type === "hotel" && (
+                <>
+                  <h3 className="font-semibold text-sm">酒店预订</h3>
+                  
+                  <div className="bg-muted/50 rounded-lg p-4 space-y-3">
+                    <div className="flex items-start gap-3">
+                      <MapPin className="w-5 h-5 text-primary mt-1" />
+                      <div className="flex-1">
+                        <div className="text-xl font-bold mb-1">{item.hotelName}</div>
+                        <div className="text-sm text-muted-foreground">{item.address}</div>
+                      </div>
+                    </div>
+                    
+                    <div className="grid grid-cols-2 gap-3 text-sm">
+                      <div>
+                        <span className="text-muted-foreground">入住时间: </span>
+                        <span className="font-medium">{format(item.checkInDate, "yyyy-MM-dd", { locale: zhCN })}</span>
+                      </div>
+                      <div>
+                        <span className="text-muted-foreground">离店时间: </span>
+                        <span className="font-medium">{format(item.checkOutDate, "yyyy-MM-dd", { locale: zhCN })}</span>
+                      </div>
+                      <div>
+                        <span className="text-muted-foreground">住宿天数: </span>
+                        <span className="font-medium">{item.nights} 晚</span>
+                      </div>
+                      <div>
+                        <Badge variant="outline">{item.roomType}</Badge>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <h4 className="text-sm font-medium text-muted-foreground">客人信息</h4>
+                    {item.guests.map((guest, gIndex) => (
+                      <div key={gIndex} className="flex items-center justify-between p-3 bg-background border rounded-lg">
+                        <div className="flex items-center gap-3">
+                          <User className="w-4 h-4 text-muted-foreground" />
+                          <div>
+                            <div className="font-medium">{guest.name}</div>
+                            <div className="text-xs text-muted-foreground">
+                              身份证: {guest.idCard.replace(/^(.{6})(.{8})(.{4})$/, "$1****$3")}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="flex items-center justify-between text-sm">
+                    <span className="text-muted-foreground">{item.roomType} × {item.nights} 晚</span>
+                    <div className="flex items-center gap-3">
+                      {item.originalPrice > item.paidPrice && (
+                        <span className="line-through text-muted-foreground">¥{item.originalPrice}</span>
+                      )}
+                      <span className="font-medium text-primary">¥{item.paidPrice}</span>
+                    </div>
+                  </div>
+                </>
+              )}
+
+              {item.type === "ticket" && (
+                <>
+                  <h3 className="font-semibold text-sm">景点门票</h3>
+                  
+                  <div className="bg-muted/50 rounded-lg p-4 space-y-3">
+                    <div className="flex items-start gap-3">
+                      <MapPin className="w-5 h-5 text-primary mt-1" />
+                      <div className="flex-1">
+                        <div className="text-xl font-bold mb-1">{item.attractionName}</div>
+                        <div className="text-sm text-muted-foreground">{item.address}</div>
+                      </div>
+                    </div>
+                    
+                    <div className="grid grid-cols-2 gap-3 text-sm">
+                      <div>
+                        <span className="text-muted-foreground">游玩日期: </span>
+                        <span className="font-medium">{format(item.visitDate, "yyyy-MM-dd", { locale: zhCN })}</span>
+                      </div>
+                      <div>
+                        <span className="text-muted-foreground">门票数量: </span>
+                        <span className="font-medium">{item.quantity} 张</span>
+                      </div>
+                      <div className="col-span-2">
+                        <Badge variant="outline">{item.ticketType}</Badge>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <h4 className="text-sm font-medium text-muted-foreground">游客信息</h4>
+                    {item.visitors.map((visitor, vIndex) => (
+                      <div key={vIndex} className="flex items-center justify-between p-3 bg-background border rounded-lg">
+                        <div className="flex items-center gap-3">
+                          <User className="w-4 h-4 text-muted-foreground" />
+                          <div>
+                            <div className="font-medium">{visitor.name}</div>
+                            <div className="text-xs text-muted-foreground">
+                              身份证: {visitor.idCard.replace(/^(.{6})(.{8})(.{4})$/, "$1****$3")}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="flex items-center justify-between text-sm">
+                    <span className="text-muted-foreground">{item.ticketType} × {item.quantity}</span>
+                    <div className="flex items-center gap-3">
+                      {item.originalPrice > item.paidPrice && (
+                        <span className="line-through text-muted-foreground">¥{item.originalPrice}</span>
+                      )}
+                      <span className="font-medium text-primary">¥{item.paidPrice}</span>
+                    </div>
+                  </div>
+                </>
+              )}
 
               {index < order.items.length - 1 && <Separator />}
             </div>
