@@ -68,6 +68,18 @@ const Navbar = ({ isLoggedIn = false }: NavbarProps) => {
                 >
                   景区门票
                 </a>
+                <a
+                  href="/my-trips"
+                  className="text-foreground hover:text-accent transition-colors relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-accent after:transition-all hover:after:w-full"
+                >
+                  我的行程
+                </a>
+                <a
+                  href="/my-orders"
+                  className="text-foreground hover:text-accent transition-colors relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-accent after:transition-all hover:after:w-full"
+                >
+                  我的订单
+                </a>
               </>
             ) : (
               <>
