@@ -7,7 +7,6 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Plane, Mail, Lock, User } from "lucide-react";
 import { toast } from "sonner";
-import authBackground from "@/assets/auth-background-premium.jpg";
 
 // 写死的测试用户
 const MOCK_USER = {
@@ -53,12 +52,10 @@ const Auth = () => {
 
   return (
     <div className="min-h-screen relative flex items-center justify-center p-4">
-      {/* 背景图片 */}
-      <div 
-        className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: `url(${authBackground})` }}
-      >
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/40 via-background/60 to-accent/40 backdrop-blur-[2px]" />
+      {/* 深绿色雾透渐变背景 */}
+      <div className="absolute inset-0 bg-gradient-to-br from-[#0d3d3d] via-[#1a5555] to-[#0f4444]">
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0a2f2f]/80 via-transparent to-[#163f3f]/60" />
+        <div className="absolute inset-0 opacity-30 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.1),transparent_50%),radial-gradient(circle_at_70%_80%,rgba(255,255,255,0.08),transparent_50%)]" />
       </div>
       
       {/* 背景装饰 */}
