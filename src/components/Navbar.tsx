@@ -22,7 +22,7 @@ const Navbar = ({ isLoggedIn = false }: NavbarProps) => {
     localStorage.removeItem("isLoggedIn");
     localStorage.removeItem("user");
     toast.success("已退出登录");
-    navigate("/");
+    navigate("/auth");
   };
 
   return (
@@ -32,7 +32,7 @@ const Navbar = ({ isLoggedIn = false }: NavbarProps) => {
           {/* Logo */}
           <div 
             className="flex items-center gap-2 cursor-pointer"
-            onClick={() => navigate(isLoggedIn ? "/dashboard" : "/")}
+            onClick={() => navigate("/")}
           >
             <div className="w-10 h-10 bg-accent rounded-lg flex items-center justify-center">
               <Plane className="w-6 h-6 text-primary" />
@@ -45,7 +45,7 @@ const Navbar = ({ isLoggedIn = false }: NavbarProps) => {
             {isLoggedIn ? (
               <>
                 <a
-                  href="/dashboard"
+                  href="/"
                   className="text-primary font-medium hover:text-accent transition-colors relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-accent after:transition-all hover:after:w-full"
                 >
                   首页

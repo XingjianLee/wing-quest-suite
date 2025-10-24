@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -23,8 +23,6 @@ import {
   ArrowRight,
   Filter
 } from "lucide-react";
-import natureBackground from "@/assets/nature-background.png";
-import mountainBackground from "@/assets/mountain-background.png";
 
 const UserDashboard = () => {
   const navigate = useNavigate();
@@ -32,6 +30,14 @@ const UserDashboard = () => {
   const [destination, setDestination] = useState("上海");
   const [activeActivity, setActiveActivity] = useState<string | null>(null);
   const [selectedDateIndex, setSelectedDateIndex] = useState(2);
+  
+  // 检查登录状态
+  useEffect(() => {
+    const isLoggedIn = localStorage.getItem("isLoggedIn");
+    if (!isLoggedIn) {
+      navigate("/auth");
+    }
+  }, [navigate]);
   
   // 生成未来7天日期
   const dates = Array.from({ length: 7 }, (_, i) => {
@@ -157,17 +163,7 @@ const UserDashboard = () => {
                       key={trip.id} 
                       className="overflow-hidden hover:shadow-xl transition-all duration-300 border-0 group cursor-pointer hover-scale"
                     >
-                      <div className="relative h-64 flex flex-col items-center justify-center p-6 text-white overflow-hidden">
-                        {/* 背景图片 */}
-                        <div 
-                          className="absolute inset-0 bg-cover bg-center"
-                          style={{ 
-                            backgroundImage: `url(${natureBackground})`,
-                          }}
-                        />
-                        {/* 渐变遮罩 */}
-                        <div className="absolute inset-0 bg-gradient-to-b from-green-900/60 via-green-900/70 to-green-950/90" />
-                        
+                      <div className="relative h-64 bg-gradient-to-br from-green-600 to-emerald-700 flex flex-col items-center justify-center p-6 text-white">
                         <div className="relative z-10 text-center">
                           <h3 className="text-2xl font-bold mb-2">{trip.title}</h3>
                           <p className="text-sm text-white/90 mb-1">{trip.subtitle}</p>
@@ -355,17 +351,7 @@ const UserDashboard = () => {
           <div className="lg:col-span-4 space-y-6">
             <Card className="border-0 shadow-lg overflow-hidden group">
               {/* 目的地大图 */}
-              <div className="relative h-64 overflow-hidden">
-                {/* 背景图片 */}
-                <div 
-                  className="absolute inset-0 bg-cover bg-center"
-                  style={{ 
-                    backgroundImage: `url(${mountainBackground})`,
-                  }}
-                />
-                {/* 渐变遮罩 */}
-                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black/40" />
-                
+              <div className="relative h-64 bg-gradient-to-br from-orange-400 to-amber-600 overflow-hidden">
                 <div className="absolute top-4 left-4 text-white">
                   <Mountain className="w-5 h-5 mb-2" />
                   <p className="text-sm font-semibold mb-1">2,665米</p>
@@ -437,14 +423,8 @@ const UserDashboard = () => {
                   {hotels.map((hotel) => (
                     <Card key={hotel.id} className="border-0 bg-muted/50 hover:shadow-lg transition-all overflow-hidden group">
                       <div className="flex gap-4 p-4">
-                        <div className="w-24 h-24 rounded-lg flex-shrink-0 overflow-hidden relative">
-                          <div 
-                            className="absolute inset-0 bg-cover bg-center"
-                            style={{ 
-                              backgroundImage: `url(${mountainBackground})`,
-                            }}
-                          />
-                          <div className="absolute inset-0 bg-black/20" />
+                        <div className="w-24 h-24 rounded-lg bg-gradient-to-br from-amber-200 to-orange-300 flex-shrink-0 overflow-hidden flex items-center justify-center">
+                          <Hotel className="w-10 h-10 text-white/80" />
                         </div>
                         
                         <div className="flex-1 min-w-0">

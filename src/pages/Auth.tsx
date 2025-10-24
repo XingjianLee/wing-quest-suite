@@ -33,7 +33,7 @@ const Auth = () => {
         email: MOCK_USER.email,
       }));
       toast.success("登录成功！");
-      navigate("/dashboard");
+      navigate("/");
     } else {
       toast.error("邮箱或密码错误");
     }
