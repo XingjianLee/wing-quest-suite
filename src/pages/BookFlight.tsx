@@ -167,10 +167,10 @@ export default function BookFlight() {
     });
 
   return (
-    <div className="min-h-screen bg-secondary/30">
+    <div className="bg-secondary/30">
       <Navbar isLoggedIn={true} />
       
-      <div className="pt-20 flex h-[calc(100vh-5rem)]">
+      <div className="pt-20 flex min-h-[calc(100vh-5rem)]">
         {/* Left Sidebar - Fixed Filters */}
         <div className="w-80 flex-shrink-0 overflow-y-auto border-r border-border/50 bg-background p-4">
           <FlightFilters filters={filters} onFilterChange={handleFilterChange} />
