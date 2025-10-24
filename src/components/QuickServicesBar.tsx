@@ -4,6 +4,8 @@ import {
   RefreshCw,
   Headphones,
   CheckCircle2,
+  Calendar,
+  Bot,
 } from "lucide-react";
 
 const services = [
@@ -14,6 +16,22 @@ const services = [
     description: "提前选座",
     route: "/check-in",
     color: "from-blue-500 to-cyan-500",
+  },
+  {
+    id: "price-calendar",
+    name: "价格日历",
+    icon: Calendar,
+    description: "查看价格",
+    route: "/price-calendar",
+    color: "from-purple-500 to-pink-500",
+  },
+  {
+    id: "travel-assistant",
+    name: "旅行助手",
+    icon: Bot,
+    description: "智能助手",
+    route: "/travel-assistant",
+    color: "from-indigo-500 to-purple-500",
   },
   {
     id: "refund",
@@ -44,7 +62,7 @@ const QuickServicesBar = () => {
           <p className="text-sm text-muted-foreground">一站式旅行服务平台</p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 max-w-3xl mx-auto">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 max-w-5xl mx-auto">
           {services.map((service) => (
             <Card
               key={service.id}
