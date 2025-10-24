@@ -167,24 +167,24 @@ export default function BookFlight() {
     });
 
   return (
-    <div className="bg-secondary/30">
+    <div className="bg-secondary/30 min-h-screen">
       <Navbar isLoggedIn={true} />
       
-      <div className="flex">
+      <div className="flex pt-[72px]">
         {/* Left Sidebar - Fixed Filters */}
         <div className="sticky top-[72px] w-80 h-[calc(100vh-72px)] flex-shrink-0 overflow-y-auto border-r border-border/50 bg-background p-4">
           <FlightFilters filters={filters} onFilterChange={handleFilterChange} />
         </div>
 
         {/* Right Content Area */}
-        <div className="flex-1 flex flex-col overflow-hidden">
+        <div className="flex-1 min-h-[calc(100vh-72px)]">
           {/* Search Bar - Sticky at top */}
-          <div className="sticky top-[72px] z-30 bg-background border-b border-border/50 p-4 flex-shrink-0">
+          <div className="sticky top-[72px] z-30 bg-background border-b border-border/50 p-4">
             <FlightSearchBar />
           </div>
 
           {/* Scrollable Flight List */}
-          <div className="flex-1 overflow-y-auto">
+          <div>
             <div className="container mx-auto px-4 py-6">
               <div className="mb-4 flex items-center justify-between">
                 <h2 className="text-xl font-semibold text-foreground">
