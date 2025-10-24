@@ -52,16 +52,16 @@ const Auth = () => {
 
   return (
     <div className="min-h-screen relative flex items-center justify-center p-4">
-      {/* 深绿色雾透渐变背景 */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[#0d3d3d] via-[#1a5555] to-[#0f4444]">
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0a2f2f]/80 via-transparent to-[#163f3f]/60" />
-        <div className="absolute inset-0 opacity-30 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.1),transparent_50%),radial-gradient(circle_at_70%_80%,rgba(255,255,255,0.08),transparent_50%)]" />
+      {/* 浅色白绿雾透渐变背景 */}
+      <div className="absolute inset-0 bg-gradient-to-br from-[#f0fdf4] via-[#dcfce7] to-[#bbf7d0]">
+        <div className="absolute inset-0 bg-gradient-to-t from-white/40 via-[#d1fae5]/30 to-[#e8f5e9]/50" />
+        <div className="absolute inset-0 opacity-40 bg-[radial-gradient(circle_at_30%_20%,rgba(16,185,129,0.15),transparent_50%),radial-gradient(circle_at_70%_80%,rgba(74,222,128,0.12),transparent_50%)]" />
       </div>
       
       {/* 背景装饰 */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-accent/5 rounded-full blur-3xl" />
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-primary/5 rounded-full blur-3xl" />
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-accent/10 rounded-full blur-3xl" />
+        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-primary/10 rounded-full blur-3xl" />
       </div>
 
       <div className="w-full max-w-md relative z-10">
