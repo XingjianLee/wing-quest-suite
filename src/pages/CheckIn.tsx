@@ -211,8 +211,8 @@ const CheckIn = () => {
                           {selectedSeat ? "重新选择" : "选择座位"}
                         </Button>
                       </DialogTrigger>
-                      <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto bg-slate-900 text-white border-slate-700">
-                        <DialogHeader>
+                      <DialogContent className="max-w-4xl max-h-[90vh] overflow-hidden bg-slate-900 text-white border-slate-700 flex flex-col">
+                        <DialogHeader className="sticky top-0 z-10 bg-slate-900 pb-4 border-b border-slate-700">
                           <DialogTitle className="text-white text-center text-xl">选择座位</DialogTitle>
                           <div className="flex items-center justify-center gap-6 text-sm pt-4">
                             <div className="flex items-center gap-2">
@@ -229,7 +229,7 @@ const CheckIn = () => {
                             </div>
                           </div>
                         </DialogHeader>
-                        <div className="py-6">
+                        <div className="flex-1 overflow-y-auto py-6">
                           <div className="flex justify-center">
                             <div className="relative">
                               {/* Airplane body shape */}
@@ -341,9 +341,9 @@ const CheckIn = () => {
                                  </div>
                                </div>
                              </div>
-                           </div>
-                         </div>
-                       </DialogContent>
+                          </div>
+                        </div>
+                      </DialogContent>
                     </Dialog>
                   </div>
                 </CardContent>
