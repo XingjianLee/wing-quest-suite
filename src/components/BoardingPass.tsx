@@ -43,7 +43,9 @@ const BoardingPass = ({
   return (
     <div className="animate-[slideUp_0.6s_ease-out] relative">
       <Card className="max-w-4xl mx-auto overflow-hidden shadow-2xl border-l-8 border-l-primary">
-        <div className="bg-gradient-to-br from-background via-secondary/10 to-background p-6">
+        <div className="bg-gradient-to-br from-background via-secondary/10 to-background p-6 flex gap-6">
+          {/* Main Content */}
+          <div className="flex-1">
           {/* Header */}
           <div className="flex items-center gap-3 mb-6 pb-4 border-b border-border">
             <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
@@ -122,11 +124,19 @@ const BoardingPass = ({
             </div>
           </div>
 
-          {/* Barcode */}
-          <div className="mt-6 pt-4 border-t border-border flex justify-end">
-            <div className="text-right">
+          {/* Notice */}
+          <div className="mt-4 p-3 bg-muted/50 rounded-lg">
+            <p className="text-xs text-muted-foreground text-center">
+              请提前45分钟到达登机口 · 携带有效身份证件 · 祝您旅途愉快
+            </p>
+          </div>
+          </div>
+
+          {/* Barcode - Right Side Rotated */}
+          <div className="flex items-center justify-center border-l border-border pl-4">
+            <div className="flex flex-col items-center justify-center rotate-90 origin-center" style={{ width: '60px' }}>
               <div className="mb-2">
-                <svg width="200" height="60" className="mx-auto">
+                <svg width="200" height="60">
                   {Array.from({ length: 40 }).map((_, i) => (
                     <rect
                       key={i}
@@ -140,15 +150,8 @@ const BoardingPass = ({
                   ))}
                 </svg>
               </div>
-              <div className="text-xs text-muted-foreground">{ticketNumber}</div>
+              <div className="text-xs text-muted-foreground whitespace-nowrap">{ticketNumber}</div>
             </div>
-          </div>
-
-          {/* Notice */}
-          <div className="mt-4 p-3 bg-muted/50 rounded-lg">
-            <p className="text-xs text-muted-foreground text-center">
-              请提前45分钟到达登机口 · 携带有效身份证件 · 祝您旅途愉快
-            </p>
           </div>
         </div>
       </Card>
