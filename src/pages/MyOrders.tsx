@@ -5,7 +5,15 @@ import OrderCard, { Order } from "@/components/OrderCard";
 import OrderDetailsDialog from "@/components/OrderDetailsDialog";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Receipt, Clock, CheckCircle2, XCircle, Wallet } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Receipt, Clock, CheckCircle2, XCircle, Wallet, ArrowUpDown, Plane, Hotel, Ticket } from "lucide-react";
 
 // Mock 订单数据 - 包含航班、酒店和门票
 const mockOrders: Order[] = [
@@ -305,6 +313,9 @@ const mockOrders: Order[] = [
 const MyOrders = () => {
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [sortBy, setSortBy] = useState<"time" | "amount">("time");
+  const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc");
+  const [typeFilter, setTypeFilter] = useState<"all" | "flight" | "hotel" | "ticket">("all");
 
   const handleViewDetails = (order: Order) => {
     setSelectedOrder(order);
@@ -312,12 +323,35 @@ const MyOrders = () => {
   };
 
   const filterOrders = (status: string) => {
-    if (status === "all") return mockOrders;
-    if (status === "unpaid") return mockOrders.filter(o => o.paymentStatus === "unpaid");
-    if (status === "paid") return mockOrders.filter(o => o.paymentStatus === "paid" && o.status === "paid");
-    if (status === "completed") return mockOrders.filter(o => o.status === "completed");
-    if (status === "cancelled") return mockOrders.filter(o => o.status === "cancelled" || o.paymentStatus === "failed");
-    return mockOrders;
+    let filtered = mockOrders;
+    
+    // 按状态筛选
+    if (status !== "all") {
+      if (status === "unpaid") filtered = filtered.filter(o => o.paymentStatus === "unpaid");
+      else if (status === "paid") filtered = filtered.filter(o => o.paymentStatus === "paid" && o.status === "paid");
+      else if (status === "completed") filtered = filtered.filter(o => o.status === "completed");
+      else if (status === "cancelled") filtered = filtered.filter(o => o.status === "cancelled" || o.paymentStatus === "failed");
+    }
+    
+    // 按类型筛选
+    if (typeFilter !== "all") {
+      filtered = filtered.filter(o => o.items.some(item => item.type === typeFilter));
+    }
+    
+    // 排序
+    const sorted = [...filtered].sort((a, b) => {
+      if (sortBy === "time") {
+        const timeA = a.createdAt.getTime();
+        const timeB = b.createdAt.getTime();
+        return sortOrder === "desc" ? timeB - timeA : timeA - timeB;
+      } else {
+        const amountA = a.totalAmount;
+        const amountB = b.totalAmount;
+        return sortOrder === "desc" ? amountB - amountA : amountA - amountB;
+      }
+    });
+    
+    return sorted;
   };
 
   const stats = {
@@ -405,13 +439,66 @@ const MyOrders = () => {
         {/* 订单列表 */}
         <div className="container mx-auto px-4 py-8">
           <Tabs defaultValue="all" className="space-y-6">
-            <TabsList className="grid w-full max-w-2xl grid-cols-5">
-              <TabsTrigger value="all">全部</TabsTrigger>
-              <TabsTrigger value="unpaid">待支付</TabsTrigger>
-              <TabsTrigger value="paid">已支付</TabsTrigger>
-              <TabsTrigger value="completed">已完成</TabsTrigger>
-              <TabsTrigger value="cancelled">已取消</TabsTrigger>
-            </TabsList>
+            <div className="flex items-center justify-between gap-4">
+              <TabsList className="grid w-full max-w-2xl grid-cols-5">
+                <TabsTrigger value="all">全部</TabsTrigger>
+                <TabsTrigger value="unpaid">待支付</TabsTrigger>
+                <TabsTrigger value="paid">已支付</TabsTrigger>
+                <TabsTrigger value="completed">已完成</TabsTrigger>
+                <TabsTrigger value="cancelled">已取消</TabsTrigger>
+              </TabsList>
+              
+              <div className="flex items-center gap-2">
+                {/* 类型筛选 */}
+                <Select value={typeFilter} onValueChange={(value: any) => setTypeFilter(value)}>
+                  <SelectTrigger className="w-[140px]">
+                    <SelectValue placeholder="订单类型" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">全部类型</SelectItem>
+                    <SelectItem value="flight">
+                      <div className="flex items-center gap-2">
+                        <Plane className="w-4 h-4" />
+                        <span>机票</span>
+                      </div>
+                    </SelectItem>
+                    <SelectItem value="hotel">
+                      <div className="flex items-center gap-2">
+                        <Hotel className="w-4 h-4" />
+                        <span>酒店</span>
+                      </div>
+                    </SelectItem>
+                    <SelectItem value="ticket">
+                      <div className="flex items-center gap-2">
+                        <Ticket className="w-4 h-4" />
+                        <span>景点</span>
+                      </div>
+                    </SelectItem>
+                  </SelectContent>
+                </Select>
+
+                {/* 排序方式 */}
+                <Select value={sortBy} onValueChange={(value: any) => setSortBy(value)}>
+                  <SelectTrigger className="w-[140px]">
+                    <SelectValue placeholder="排序方式" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="time">按时间</SelectItem>
+                    <SelectItem value="amount">按金额</SelectItem>
+                  </SelectContent>
+                </Select>
+
+                {/* 排序顺序 */}
+                <Button
+                  variant="outline"
+                  size="icon"
+                  onClick={() => setSortOrder(sortOrder === "asc" ? "desc" : "asc")}
+                  title={sortOrder === "asc" ? "升序" : "降序"}
+                >
+                  <ArrowUpDown className="w-4 h-4" />
+                </Button>
+              </div>
+            </div>
 
             {["all", "unpaid", "paid", "completed", "cancelled"].map((tab) => (
               <TabsContent key={tab} value={tab} className="space-y-4">
