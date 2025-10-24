@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "@/components/Navbar";
+import QuickServicesBar from "@/components/QuickServicesBar";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -130,7 +131,9 @@ const UserDashboard = () => {
     <div className="min-h-screen bg-gradient-subtle">
       <Navbar isLoggedIn={true} />
       
-      <main className="container mx-auto px-6 pt-20 pb-12">
+      <QuickServicesBar />
+      
+      <main className="container mx-auto px-6 pt-6 pb-12">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           {/* 左侧边栏 - 主题导航与核心推荐 */}
           <div className="lg:col-span-3 space-y-6">
