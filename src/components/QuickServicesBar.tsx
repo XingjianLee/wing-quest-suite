@@ -82,7 +82,7 @@ const QuickServicesBar = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="bg-gradient-to-br from-primary/5 via-accent/5 to-background border-b">
+    <div className="bg-gradient-to-br from-primary/5 via-accent/5 to-background border-b pt-20">
       <div className="container mx-auto px-6 py-6">
         <div className="mb-4">
           <h2 className="text-2xl font-bold mb-1">快捷服务</h2>
