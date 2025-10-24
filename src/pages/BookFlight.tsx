@@ -170,9 +170,11 @@ export default function BookFlight() {
     <div className="min-h-screen bg-secondary/30">
       <Navbar isLoggedIn={true} />
       
-      {/* Fixed Search Bar */}
-      <div className="sticky top-[72px] z-40 bg-background/95 backdrop-blur-sm px-4 py-3">
-        <FlightSearchBar />
+      {/* Search Bar */}
+      <div className="pt-20 pb-4 px-4 bg-background">
+        <div className="container mx-auto">
+          <FlightSearchBar />
+        </div>
       </div>
 
       {/* Main Content */}
