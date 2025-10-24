@@ -172,7 +172,7 @@ export default function BookFlight() {
       
       <div className="pt-20 flex min-h-[calc(100vh-5rem)]">
         {/* Left Sidebar - Fixed Filters */}
-        <div className="w-80 flex-shrink-0 overflow-y-auto border-r border-border/50 bg-background p-4">
+        <div className="sticky top-[72px] w-80 h-[calc(100vh-72px)] flex-shrink-0 overflow-y-auto border-r border-border/50 bg-background p-4">
           <FlightFilters filters={filters} onFilterChange={handleFilterChange} />
         </div>
 
