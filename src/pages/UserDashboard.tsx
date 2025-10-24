@@ -23,6 +23,8 @@ import {
   ArrowRight,
   Filter
 } from "lucide-react";
+import natureBackground from "@/assets/nature-background.png";
+import mountainBackground from "@/assets/mountain-background.png";
 
 const UserDashboard = () => {
   const navigate = useNavigate();
@@ -155,13 +157,16 @@ const UserDashboard = () => {
                       key={trip.id} 
                       className="overflow-hidden hover:shadow-xl transition-all duration-300 border-0 group cursor-pointer hover-scale"
                     >
-                      <div className="relative h-64 bg-gradient-to-b from-green-900/80 to-green-950/90 flex flex-col items-center justify-center p-6 text-white">
-                        {/* 背景装饰 */}
-                        <div className="absolute inset-0 opacity-20">
-                          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-3/4">
-                            <div className="w-full h-full bg-gradient-to-t from-green-950 to-transparent" />
-                          </div>
-                        </div>
+                      <div className="relative h-64 flex flex-col items-center justify-center p-6 text-white overflow-hidden">
+                        {/* 背景图片 */}
+                        <div 
+                          className="absolute inset-0 bg-cover bg-center"
+                          style={{ 
+                            backgroundImage: `url(${natureBackground})`,
+                          }}
+                        />
+                        {/* 渐变遮罩 */}
+                        <div className="absolute inset-0 bg-gradient-to-b from-green-900/60 via-green-900/70 to-green-950/90" />
                         
                         <div className="relative z-10 text-center">
                           <h3 className="text-2xl font-bold mb-2">{trip.title}</h3>
@@ -350,13 +355,21 @@ const UserDashboard = () => {
           <div className="lg:col-span-4 space-y-6">
             <Card className="border-0 shadow-lg overflow-hidden group">
               {/* 目的地大图 */}
-              <div className="relative h-64 bg-gradient-to-br from-orange-400 via-orange-300 to-amber-200 overflow-hidden">
-                <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB4PSIwIiB5PSIwIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiPjxwYXRoIGQ9Ik0wIDQwTDQwIDBNNDAgNDBMMCA0MCIgc3Ryb2tlPSJ3aGl0ZSIgc3Ryb2tlLW9wYWNpdHk9IjAuMDUiIHN0cm9rZS13aWR0aD0iMSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNwYXR0ZXJuKSIvPjwvc3ZnPg==')] opacity-50" />
+              <div className="relative h-64 overflow-hidden">
+                {/* 背景图片 */}
+                <div 
+                  className="absolute inset-0 bg-cover bg-center"
+                  style={{ 
+                    backgroundImage: `url(${mountainBackground})`,
+                  }}
+                />
+                {/* 渐变遮罩 */}
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black/40" />
                 
                 <div className="absolute top-4 left-4 text-white">
                   <Mountain className="w-5 h-5 mb-2" />
                   <p className="text-sm font-semibold mb-1">2,665米</p>
-                  <h3 className="text-3xl font-bold">第洛尔<br/>阿尔卑斯</h3>
+                  <h3 className="text-3xl font-bold drop-shadow-lg">第洛尔<br/>阿尔卑斯</h3>
                 </div>
                 
                 <Button
@@ -424,10 +437,14 @@ const UserDashboard = () => {
                   {hotels.map((hotel) => (
                     <Card key={hotel.id} className="border-0 bg-muted/50 hover:shadow-lg transition-all overflow-hidden group">
                       <div className="flex gap-4 p-4">
-                        <div className="w-24 h-24 rounded-lg bg-gradient-to-br from-amber-200 to-orange-300 flex-shrink-0 overflow-hidden">
-                          <div className="w-full h-full flex items-center justify-center">
-                            <Hotel className="w-10 h-10 text-white/80" />
-                          </div>
+                        <div className="w-24 h-24 rounded-lg flex-shrink-0 overflow-hidden relative">
+                          <div 
+                            className="absolute inset-0 bg-cover bg-center"
+                            style={{ 
+                              backgroundImage: `url(${mountainBackground})`,
+                            }}
+                          />
+                          <div className="absolute inset-0 bg-black/20" />
                         </div>
                         
                         <div className="flex-1 min-w-0">
