@@ -219,7 +219,7 @@ const CheckIn = () => {
                           <div className="flex justify-center">
                             <div className="relative">
                               {/* Airplane body shape */}
-                              <div className="relative bg-gradient-to-b from-slate-700 via-slate-800 to-slate-700 rounded-t-[120px] rounded-b-3xl px-8 py-6 shadow-2xl">
+                              <div className="relative bg-gradient-to-b from-slate-700 via-slate-800 to-slate-700 rounded-t-[120px] rounded-b-3xl px-8 py-6 shadow-2xl max-h-[70vh] overflow-hidden">
                                 {/* Airplane nose curve */}
                                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-24 bg-gradient-to-b from-slate-600 to-slate-700 rounded-t-full -translate-y-8"></div>
                                 
@@ -229,7 +229,7 @@ const CheckIn = () => {
                                 {/* Right wing */}
                                 <div className="absolute right-0 top-32 w-16 h-20 bg-gradient-to-bl from-slate-600 to-slate-700 rounded-r-full translate-x-12 shadow-lg"></div>
                                 
-                                <div className="relative pt-8 space-y-6">
+                                <div className="relative pt-8 space-y-6 flex flex-col max-h-full">
                                   {/* Business Class Section */}
                                   <div className="text-center mb-4">
                                     <span className="text-slate-300 font-medium text-sm">Business Class</span>
@@ -252,7 +252,7 @@ const CheckIn = () => {
                               </div>
 
                                   {/* Seat rows */}
-                                  <div className="space-y-2 max-h-[500px] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-slate-600 scrollbar-track-slate-800">
+                                  <div className="space-y-2 flex-1 overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-slate-600 scrollbar-track-slate-800">
                                     {Array.from({ length: totalRows }, (_, i) => i + 1).map((row) => (
                                       <div key={row} className="flex gap-3 justify-center items-center">
                                         <div className="w-10 text-center text-xs font-medium text-slate-500">
