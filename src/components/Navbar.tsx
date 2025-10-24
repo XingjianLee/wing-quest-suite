@@ -17,7 +17,7 @@ const Navbar = ({ isLoggedIn = false }: NavbarProps) => {
           {/* Logo */}
           <div 
             className="flex items-center gap-2 cursor-pointer"
-            onClick={() => navigate("/")}
+            onClick={() => navigate("/hero")}
           >
             <div className="w-10 h-10 bg-accent rounded-lg flex items-center justify-center">
               <Plane className="w-6 h-6 text-primary" />
