@@ -13,6 +13,7 @@ interface BoardingPassProps {
     city: string;
     airport: string;
     time: string;
+    terminal: string;
   };
   arrival: {
     code: string;
@@ -42,7 +43,7 @@ const BoardingPass = ({
 }: BoardingPassProps) => {
   return (
     <div className="animate-[slideUp_0.6s_ease-out] relative">
-      <Card className="max-w-4xl mx-auto overflow-hidden shadow-2xl border-l-8 border-l-primary">
+      <Card className="w-full mx-auto overflow-hidden shadow-2xl border-l-8 border-l-primary">
         <div className="bg-gradient-to-br from-background via-secondary/10 to-background p-6 flex gap-6">
           {/* Main Content */}
           <div className="flex-1">
@@ -109,7 +110,7 @@ const BoardingPass = ({
           </div>
 
           {/* Boarding Details */}
-          <div className="grid grid-cols-3 gap-4 mt-4 pt-4 border-t border-border">
+          <div className="grid grid-cols-4 gap-4 mt-4 pt-4 border-t border-border">
             <div>
               <div className="text-xs text-muted-foreground mb-1">登机时间</div>
               <div className="font-semibold">{boardingTime}</div>
@@ -117,6 +118,10 @@ const BoardingPass = ({
             <div>
               <div className="text-xs text-muted-foreground mb-1">票号</div>
               <div className="font-semibold text-sm">{ticketNumber}</div>
+            </div>
+            <div>
+              <div className="text-xs text-muted-foreground mb-1">航站楼</div>
+              <div className="font-semibold text-lg text-primary">{departure.terminal}</div>
             </div>
             <div>
               <div className="text-xs text-muted-foreground mb-1">登机口</div>

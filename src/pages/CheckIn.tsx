@@ -492,7 +492,8 @@ const CheckIn = () => {
                   code: "PEK",
                   city: flightInfo.departure.city,
                   airport: flightInfo.departure.airport,
-                  time: flightInfo.departure.time.split(' ')[1]
+                  time: flightInfo.departure.time.split(' ')[1],
+                  terminal: flightInfo.departure.terminal
                 }}
                 arrival={{
                   code: "PVG",
