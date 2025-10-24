@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -30,14 +30,6 @@ const UserDashboard = () => {
   const [destination, setDestination] = useState("上海");
   const [activeActivity, setActiveActivity] = useState<string | null>(null);
   const [selectedDateIndex, setSelectedDateIndex] = useState(2);
-  
-  // 检查登录状态
-  useEffect(() => {
-    const isLoggedIn = localStorage.getItem("isLoggedIn");
-    if (!isLoggedIn) {
-      navigate("/auth");
-    }
-  }, [navigate]);
   
   // 生成未来7天日期
   const dates = Array.from({ length: 7 }, (_, i) => {
