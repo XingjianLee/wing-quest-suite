@@ -218,6 +218,11 @@ const CheckIn = () => {
                         <div className="py-6">
                           <div className="overflow-x-auto">
                             <div className="inline-block min-w-full">
+                              {/* Airplane nose */}
+                              <div className="flex justify-center mb-6">
+                                <div className="w-16 h-12 bg-gradient-to-b from-primary/20 to-transparent rounded-t-full border-2 border-primary/30"></div>
+                              </div>
+                              
                               {/* Column headers */}
                               <div className="flex gap-2 justify-center mb-4">
                                 <div className="w-8"></div>
@@ -234,10 +239,17 @@ const CheckIn = () => {
                                 ))}
                               </div>
 
-                              {/* Seat rows */}
-                              <div className="space-y-2">
-                                {Array.from({ length: totalRows }, (_, i) => i + 1).map((row) => (
-                                  <div key={row} className="flex gap-2 justify-center items-center">
+                              {/* Seat rows with airplane body */}
+                              <div className="relative">
+                                {/* Left wing */}
+                                <div className="absolute left-0 top-[35%] w-12 h-24 bg-gradient-to-r from-transparent via-primary/10 to-primary/20 rounded-l-full border-l-2 border-primary/30 -translate-x-full"></div>
+                                
+                                {/* Right wing */}
+                                <div className="absolute right-0 top-[35%] w-12 h-24 bg-gradient-to-l from-transparent via-primary/10 to-primary/20 rounded-r-full border-r-2 border-primary/30 translate-x-full"></div>
+                                
+                                <div className="space-y-2 bg-gradient-to-b from-primary/5 via-background to-primary/5 rounded-lg py-4 px-2 border-x-2 border-primary/20">
+                                  {Array.from({ length: totalRows }, (_, i) => i + 1).map((row) => (
+                                    <div key={row} className="flex gap-2 justify-center items-center">
                                     <div className="w-8 text-center text-sm font-medium text-muted-foreground">
                                       {row}
                                     </div>
@@ -283,7 +295,13 @@ const CheckIn = () => {
                                       );
                                     })}
                                   </div>
-                                ))}
+                                  ))}
+                                </div>
+                              </div>
+                              
+                              {/* Airplane tail */}
+                              <div className="flex justify-center mt-6">
+                                <div className="w-20 h-8 bg-gradient-to-t from-primary/20 to-transparent rounded-b-lg border-2 border-t-0 border-primary/30"></div>
                               </div>
                             </div>
                           </div>
