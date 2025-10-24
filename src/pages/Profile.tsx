@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { User, Phone, Mail, MapPin, Calendar, CreditCard, Shield, Heart, Globe, Bell, Camera, Save } from "lucide-react";
+import { User, Phone, Mail, MapPin, Calendar, CreditCard, Shield, Heart, Globe, Bell, Camera, Save, Pencil, X, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -17,6 +17,9 @@ import { toast } from "sonner";
 
 const Profile = () => {
   const [loading, setLoading] = useState(false);
+  const [nickname, setNickname] = useState("张伟");
+  const [isEditingNickname, setIsEditingNickname] = useState(false);
+  const [tempNickname, setTempNickname] = useState(nickname);
   
   const handleSave = async () => {
     setLoading(true);
@@ -24,6 +27,21 @@ const Profile = () => {
     await new Promise(resolve => setTimeout(resolve, 1000));
     toast.success("个人资料已保存");
     setLoading(false);
+  };
+
+  const handleSaveNickname = () => {
+    if (tempNickname.trim()) {
+      setNickname(tempNickname);
+      setIsEditingNickname(false);
+      toast.success("昵称已更新");
+    } else {
+      toast.error("昵称不能为空");
+    }
+  };
+
+  const handleCancelEdit = () => {
+    setTempNickname(nickname);
+    setIsEditingNickname(false);
   };
 
   return (
@@ -51,7 +69,44 @@ const Profile = () => {
               
               <div className="flex-1">
                 <div className="flex items-center gap-3 mb-2">
-                  <h1 className="text-3xl font-bold">张伟</h1>
+                  {isEditingNickname ? (
+                    <div className="flex items-center gap-2">
+                      <Input
+                        value={tempNickname}
+                        onChange={(e) => setTempNickname(e.target.value)}
+                        className="text-3xl font-bold h-auto py-2 max-w-xs"
+                        placeholder="输入昵称"
+                      />
+                      <Button
+                        size="icon"
+                        variant="ghost"
+                        onClick={handleSaveNickname}
+                        className="text-primary hover:text-primary"
+                      >
+                        <Check className="w-5 h-5" />
+                      </Button>
+                      <Button
+                        size="icon"
+                        variant="ghost"
+                        onClick={handleCancelEdit}
+                        className="text-muted-foreground hover:text-foreground"
+                      >
+                        <X className="w-5 h-5" />
+                      </Button>
+                    </div>
+                  ) : (
+                    <div className="flex items-center gap-2">
+                      <h1 className="text-3xl font-bold">{nickname}</h1>
+                      <Button
+                        size="icon"
+                        variant="ghost"
+                        onClick={() => setIsEditingNickname(true)}
+                        className="text-muted-foreground hover:text-primary"
+                      >
+                        <Pencil className="w-4 h-4" />
+                      </Button>
+                    </div>
+                  )}
                   <Badge variant="default" className="gap-1">
                     <Shield className="w-3 h-3" />
                     已认证
