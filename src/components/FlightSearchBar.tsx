@@ -33,7 +33,39 @@ export default function FlightSearchBar() {
     <div className="w-full">
       <div className="w-full">
         <div className="bg-card rounded-xl shadow-card-hover border border-border/50 relative transition-all duration-300">
-          <div className={`overflow-hidden transition-all duration-300 ${isCollapsed ? 'max-h-0 opacity-0' : 'max-h-[500px] opacity-100'}`}>
+          {/* Collapsed State - Summary Bar */}
+          {isCollapsed && (
+            <div className="p-4 flex items-center justify-between">
+              <div className="flex items-center gap-6 text-sm text-foreground">
+                <div className="flex items-center gap-2">
+                  <MapPin className="h-4 w-4 text-muted-foreground" />
+                  <span>{searchData.from}</span>
+                  <ArrowLeftRight className="h-3 w-3 text-muted-foreground" />
+                  <span>{searchData.to}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Calendar className="h-4 w-4 text-muted-foreground" />
+                  <span>{searchData.departDate}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Users className="h-4 w-4 text-muted-foreground" />
+                  <span>{searchData.passengers}人</span>
+                </div>
+              </div>
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => setIsCollapsed(false)}
+                className="h-8 w-8 rounded-full hover:bg-accent/20 hover:text-accent transition-all"
+                aria-label="展开搜索栏"
+              >
+                <ChevronDown className="h-4 w-4" />
+              </Button>
+            </div>
+          )}
+
+          {/* Expanded State - Full Search Form */}
+          {!isCollapsed && (
             <div className="p-6">
               <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-end">
                 {/* From */}
@@ -135,23 +167,22 @@ export default function FlightSearchBar() {
                   </Button>
                 </div>
               </div>
+
+              {/* Collapse Button */}
+              <div className="flex justify-end mt-4">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setIsCollapsed(true)}
+                  className="gap-2 hover:bg-accent/20 hover:text-accent transition-all"
+                  aria-label="收起搜索栏"
+                >
+                  <span className="text-sm">收起</span>
+                  <ChevronUp className="h-4 w-4" />
+                </Button>
+              </div>
             </div>
-          </div>
-          
-          {/* Toggle Button */}
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => setIsCollapsed(!isCollapsed)}
-            className="absolute bottom-2 right-2 h-8 w-8 rounded-full hover:bg-accent/20 hover:text-accent transition-all z-10"
-            aria-label={isCollapsed ? "展开搜索栏" : "收起搜索栏"}
-          >
-            {isCollapsed ? (
-              <ChevronDown className="h-4 w-4" />
-            ) : (
-              <ChevronUp className="h-4 w-4" />
-            )}
-          </Button>
+          )}
         </div>
       </div>
     </div>
