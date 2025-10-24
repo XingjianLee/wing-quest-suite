@@ -13,6 +13,7 @@ const userInfo = {
   name: "张三",
   idNumber: "110101199001011234",
   phone: "138****5678",
+  cabinClass: "business" as "first" | "business" | "economy", // 用户购买的舱位
 };
 
 const flightInfo = {
@@ -72,6 +73,22 @@ const CheckIn = () => {
       toast.error("该座位已被占用");
       return;
     }
+    
+    // Extract row number from seat ID
+    const row = parseInt(seat.match(/\d+/)?.[0] || "0");
+    const seatCabinClass = getCabinClass(row);
+    
+    // Check if seat cabin class matches user's ticket cabin class
+    if (seatCabinClass !== userInfo.cabinClass) {
+      const cabinNames = {
+        first: "头等舱",
+        business: "商务舱",
+        economy: "经济舱"
+      };
+      toast.error(`您购买的是${cabinNames[userInfo.cabinClass]}，只能选择${cabinNames[userInfo.cabinClass]}座位`);
+      return;
+    }
+    
     setSelectedSeat(seat);
     setSeatDialogOpen(false);
     toast.success(`已选择座位 ${seat}`);
@@ -165,7 +182,7 @@ const CheckIn = () => {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                 <div>
                   <div className="text-sm text-muted-foreground">姓名</div>
                   <div className="font-medium">{userInfo.name}</div>
@@ -177,6 +194,20 @@ const CheckIn = () => {
                 <div>
                   <div className="text-sm text-muted-foreground">手机号</div>
                   <div className="font-medium">{userInfo.phone}</div>
+                </div>
+                <div>
+                  <div className="text-sm text-muted-foreground">舱位类型</div>
+                  <div className="font-medium">
+                    <Badge variant="secondary" className={
+                      userInfo.cabinClass === "first" 
+                        ? "bg-amber-500/20 text-amber-300 border-amber-500/50" 
+                        : userInfo.cabinClass === "business"
+                        ? "bg-purple-500/20 text-purple-300 border-purple-500/50"
+                        : "bg-blue-500/20 text-blue-300 border-blue-500/50"
+                    }>
+                      {userInfo.cabinClass === "first" ? "头等舱" : userInfo.cabinClass === "business" ? "商务舱" : "经济舱"}
+                    </Badge>
+                  </div>
                 </div>
               </div>
             </CardContent>
