@@ -170,16 +170,17 @@ export default function BookFlight() {
     <div className="min-h-screen bg-secondary/30">
       <Navbar isLoggedIn={true} />
       
-      {/* Search Bar */}
-      <div className="pt-20 pb-4 px-4 bg-background">
-        <div className="container mx-auto">
-          <FlightSearchBar />
+      <div className="pt-20">
+        {/* Search Bar - Sticky */}
+        <div className="sticky top-[72px] z-30 bg-background border-b border-border/50 pb-4">
+          <div className="container mx-auto px-4 pt-4">
+            <FlightSearchBar />
+          </div>
         </div>
-      </div>
 
-      {/* Main Content */}
-      <div className="container mx-auto px-4 py-6">
-        <div className="flex gap-6">
+        {/* Main Content */}
+        <div className="container mx-auto px-4 py-6">
+          <div className="flex gap-6">
           {/* Left Sidebar - Filters */}
           <div className="w-80 flex-shrink-0">
             <FlightFilters filters={filters} onFilterChange={handleFilterChange} />
@@ -208,6 +209,7 @@ export default function BookFlight() {
             )}
           </div>
         </div>
+      </div>
       </div>
     </div>
   );
