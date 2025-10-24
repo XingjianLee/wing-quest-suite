@@ -171,7 +171,7 @@ export default function BookFlight() {
       <Navbar isLoggedIn={true} />
       
       {/* Fixed Search Bar */}
-      <div className="sticky top-[0px] z-40 bg-background shadow-card pt-20">
+      <div className="sticky top-[72px] z-40 bg-background shadow-card">
         <FlightSearchBar />
       </div>
 
