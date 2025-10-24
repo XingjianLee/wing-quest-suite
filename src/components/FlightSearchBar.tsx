@@ -69,7 +69,7 @@ export default function FlightSearchBar() {
             <div className="p-6">
               <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-end">
                 {/* From */}
-                <div className="md:col-span-3">
+                <div className="md:col-span-2">
                   <label className="block text-sm font-medium text-muted-foreground mb-2">
                     出发地
                   </label>
@@ -97,7 +97,7 @@ export default function FlightSearchBar() {
                 </div>
 
                 {/* To */}
-                <div className="md:col-span-3">
+                <div className="md:col-span-2">
                   <label className="block text-sm font-medium text-muted-foreground mb-2">
                     目的地
                   </label>
@@ -129,7 +129,7 @@ export default function FlightSearchBar() {
                 </div>
 
                 {/* Passengers & Class */}
-                <div className="md:col-span-2">
+                <div className="md:col-span-4">
                   <label className="block text-sm font-medium text-muted-foreground mb-2">
                     乘客 / 舱位
                   </label>
@@ -148,7 +148,7 @@ export default function FlightSearchBar() {
                       value={searchData.cabinClass}
                       onValueChange={(value) => setSearchData({ ...searchData, cabinClass: value })}
                     >
-                      <SelectTrigger className="w-28">
+                      <SelectTrigger className="w-32">
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
