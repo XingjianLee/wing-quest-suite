@@ -39,6 +39,20 @@ const columns = ["A", "B", "C", "D", "E", "F"];
 const exitRows = [12, 13]; // Emergency exit rows
 const occupiedSeats = ["3A", "3B", "5C", "5D", "7E", "7F", "10A", "12C", "15B"];
 
+// Cabin classes configuration
+const getCabinClass = (row: number) => {
+  if (row >= 1 && row <= 4) return "first";
+  if (row >= 5 && row <= 10) return "business";
+  return "economy";
+};
+
+const getSeatsForRow = (row: number) => {
+  const cabinClass = getCabinClass(row);
+  if (cabinClass === "first") return ["A", "B"]; // First class: 2 seats per row
+  if (cabinClass === "business") return ["A", "B", "D", "E"]; // Business class: 4 seats per row
+  return ["A", "B", "C", "D", "E", "F"]; // Economy: 6 seats per row
+};
+
 // Baggage options
 const baggageOptions = [
   { id: "none", weight: "无托运", price: 0, description: "仅携带随身行李（10kg以内）" },
@@ -229,79 +243,101 @@ const CheckIn = () => {
                                 {/* Right wing */}
                                 <div className="absolute right-0 top-32 w-16 h-20 bg-gradient-to-bl from-slate-600 to-slate-700 rounded-r-full translate-x-12 shadow-lg"></div>
                                 
-                                <div className="relative pt-8 space-y-6">
-                                  {/* Business Class Section */}
-                                  <div className="text-center mb-4">
-                                    <span className="text-slate-300 font-medium text-sm">Business Class</span>
-                                  </div>
-                                  
-                                  {/* Column headers */}
-                                  <div className="flex gap-3 justify-center mb-2">
-                                    <div className="w-10"></div>
-                                    {columns.slice(0, 3).map((col) => (
-                                      <div key={col} className="w-12 text-center font-medium text-xs text-slate-400">
-                                        {col}
-                                      </div>
-                                    ))}
-                                    <div className="w-8"></div>
-                                    {columns.slice(3).map((col) => (
-                                      <div key={col} className="w-12 text-center font-medium text-xs text-slate-400">
-                                        {col}
-                                      </div>
-                                    ))}
-                              </div>
+                                <div className="relative pt-8 space-y-4">
 
                                   {/* Seat rows */}
-                                  <div className="space-y-2">
-                                    {Array.from({ length: totalRows }, (_, i) => i + 1).map((row) => (
-                                      <div key={row} className="flex gap-3 justify-center items-center">
-                                        <div className="w-10 text-center text-xs font-medium text-slate-500">
-                                          {row}
+                                  <div className="space-y-3">
+                                    {Array.from({ length: totalRows }, (_, i) => i + 1).map((row) => {
+                                      const cabinClass = getCabinClass(row);
+                                      const rowSeats = getSeatsForRow(row);
+                                      const showDivider = row === 4 || row === 10;
+                                      
+                                      return (
+                                        <div key={row}>
+                                          {/* Cabin class label */}
+                                          {row === 1 && (
+                                            <div className="text-center mb-3 pb-2 border-b border-amber-500/30">
+                                              <span className="text-amber-400 font-semibold text-sm">First Class</span>
+                                            </div>
+                                          )}
+                                          {row === 5 && (
+                                            <div className="text-center mb-3 pb-2 border-b border-purple-500/30 mt-4">
+                                              <span className="text-purple-400 font-semibold text-sm">Business Class</span>
+                                            </div>
+                                          )}
+                                          {row === 11 && (
+                                            <div className="text-center mb-3 pb-2 border-b border-blue-500/30 mt-4">
+                                              <span className="text-blue-400 font-semibold text-sm">Economy Class</span>
+                                            </div>
+                                          )}
+                                          
+                                          <div className="flex gap-3 justify-center items-center">
+                                            <div className="w-10 text-center text-xs font-medium text-slate-500">
+                                              {row}
+                                            </div>
+                                            
+                                            {/* Left seats */}
+                                            {rowSeats.slice(0, Math.ceil(rowSeats.length / 2)).map((col) => {
+                                              const seatId = `${row}${col}`;
+                                              const status = getSeatStatus(seatId);
+                                              return (
+                                                <button
+                                                  key={seatId}
+                                                  onClick={() => handleSeatSelect(seatId)}
+                                                  disabled={status === "occupied"}
+                                                  className={`w-12 h-12 rounded-lg text-xs font-semibold transition-all shadow-md ${
+                                                    status === "occupied"
+                                                      ? "bg-slate-600/50 cursor-not-allowed text-slate-500"
+                                                      : status === "selected"
+                                                      ? "bg-cyan-500 text-white hover:bg-cyan-600 scale-105"
+                                                      : cabinClass === "first"
+                                                      ? "bg-amber-900/50 text-amber-200 border border-amber-700 hover:bg-amber-800/60 hover:border-amber-500 hover:scale-105"
+                                                      : cabinClass === "business"
+                                                      ? "bg-purple-900/50 text-purple-200 border border-purple-700 hover:bg-purple-800/60 hover:border-purple-500 hover:scale-105"
+                                                      : "bg-slate-700 text-slate-300 border border-slate-600 hover:bg-slate-600 hover:border-cyan-500 hover:scale-105"
+                                                  } ${exitRows.includes(row) ? "ring-2 ring-yellow-500/50" : ""}`}
+                                                >
+                                                  {seatId}
+                                                </button>
+                                              );
+                                            })}
+                                            
+                                            {/* Aisle */}
+                                            <div className={cabinClass === "first" ? "w-16" : "w-8"}></div>
+                                            
+                                            {/* Right seats */}
+                                            {rowSeats.slice(Math.ceil(rowSeats.length / 2)).map((col) => {
+                                              const seatId = `${row}${col}`;
+                                              const status = getSeatStatus(seatId);
+                                              return (
+                                                <button
+                                                  key={seatId}
+                                                  onClick={() => handleSeatSelect(seatId)}
+                                                  disabled={status === "occupied"}
+                                                  className={`w-12 h-12 rounded-lg text-xs font-semibold transition-all shadow-md ${
+                                                    status === "occupied"
+                                                      ? "bg-slate-600/50 cursor-not-allowed text-slate-500"
+                                                      : status === "selected"
+                                                      ? "bg-cyan-500 text-white hover:bg-cyan-600 scale-105"
+                                                      : cabinClass === "first"
+                                                      ? "bg-amber-900/50 text-amber-200 border border-amber-700 hover:bg-amber-800/60 hover:border-amber-500 hover:scale-105"
+                                                      : cabinClass === "business"
+                                                      ? "bg-purple-900/50 text-purple-200 border border-purple-700 hover:bg-purple-800/60 hover:border-purple-500 hover:scale-105"
+                                                      : "bg-slate-700 text-slate-300 border border-slate-600 hover:bg-slate-600 hover:border-cyan-500 hover:scale-105"
+                                                  } ${exitRows.includes(row) ? "ring-2 ring-yellow-500/50" : ""}`}
+                                                >
+                                                  {seatId}
+                                                </button>
+                                              );
+                                            })}
+                                          </div>
+                                          
+                                          {/* Divider after cabin class sections */}
+                                          {showDivider && <div className="h-px bg-slate-600/50 my-3"></div>}
                                         </div>
-                                        {columns.slice(0, 3).map((col) => {
-                                          const seatId = `${row}${col}`;
-                                          const status = getSeatStatus(seatId);
-                                          return (
-                                            <button
-                                              key={seatId}
-                                              onClick={() => handleSeatSelect(seatId)}
-                                              disabled={status === "occupied"}
-                                              className={`w-12 h-12 rounded-lg text-xs font-semibold transition-all shadow-md ${
-                                                status === "occupied"
-                                                  ? "bg-slate-600/50 cursor-not-allowed text-slate-500"
-                                                  : status === "selected"
-                                                  ? "bg-cyan-500 text-white hover:bg-cyan-600 scale-105"
-                                                  : "bg-slate-700 text-slate-300 border border-slate-600 hover:bg-slate-600 hover:border-cyan-500 hover:scale-105"
-                                              } ${exitRows.includes(row) ? "ring-2 ring-yellow-500/50" : ""}`}
-                                            >
-                                              {seatId}
-                                            </button>
-                                          );
-                                        })}
-                                        <div className="w-8"></div>
-                                        {columns.slice(3).map((col) => {
-                                          const seatId = `${row}${col}`;
-                                          const status = getSeatStatus(seatId);
-                                          return (
-                                            <button
-                                              key={seatId}
-                                              onClick={() => handleSeatSelect(seatId)}
-                                              disabled={status === "occupied"}
-                                              className={`w-12 h-12 rounded-lg text-xs font-semibold transition-all shadow-md ${
-                                                status === "occupied"
-                                                  ? "bg-slate-600/50 cursor-not-allowed text-slate-500"
-                                                  : status === "selected"
-                                                  ? "bg-cyan-500 text-white hover:bg-cyan-600 scale-105"
-                                                  : "bg-slate-700 text-slate-300 border border-slate-600 hover:bg-slate-600 hover:border-cyan-500 hover:scale-105"
-                                              } ${exitRows.includes(row) ? "ring-2 ring-yellow-500/50" : ""}`}
-                                            >
-                                              {seatId}
-                                            </button>
-                                          );
-                                         })}
-                                       </div>
-                                     ))}
-                                   </div>
+                                      );
+                                    })}
+                                  </div>
                                  </div>
                                </div>
                              </div>
