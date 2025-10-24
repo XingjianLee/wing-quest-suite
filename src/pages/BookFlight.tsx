@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Navbar from "@/components/Navbar";
 import FlightSearchBar from "@/components/FlightSearchBar";
 import FlightFilters from "@/components/FlightFilters";
 import FlightCard from "@/components/FlightCard";
@@ -166,9 +167,11 @@ export default function BookFlight() {
     });
 
   return (
-    <div className="min-h-screen bg-secondary/30 pt-20">
+    <div className="min-h-screen bg-secondary/30">
+      <Navbar isLoggedIn={true} />
+      
       {/* Fixed Search Bar */}
-      <div className="sticky top-[72px] z-40 bg-background shadow-card">
+      <div className="sticky top-[72px] z-40 bg-background shadow-card pt-20">
         <FlightSearchBar />
       </div>
 
