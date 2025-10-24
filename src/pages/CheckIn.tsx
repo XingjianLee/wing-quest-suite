@@ -6,6 +6,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Plane, MapPin, Clock, User, CheckCircle2, Armchair, Luggage } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import BoardingPass from "@/components/BoardingPass";
 import { toast } from "sonner";
 
 // Fake data
@@ -67,6 +68,7 @@ const CheckIn = () => {
   const [selectedBaggage, setSelectedBaggage] = useState<string>("none");
   const [checkedIn, setCheckedIn] = useState(false);
   const [seatDialogOpen, setSeatDialogOpen] = useState(false);
+  const [showBoardingPass, setShowBoardingPass] = useState(false);
 
   const handleSeatSelect = (seat: string) => {
     if (occupiedSeats.includes(seat)) {
@@ -455,13 +457,59 @@ const CheckIn = () => {
                     )}
                   </div>
                   <div className="pt-4">
-                    <Button size="lg" variant="outline">
+                    <Button 
+                      size="lg" 
+                      variant="outline"
+                      onClick={() => {
+                        setShowBoardingPass(true);
+                        setTimeout(() => {
+                          document.getElementById('boarding-pass-section')?.scrollIntoView({ 
+                            behavior: 'smooth',
+                            block: 'start'
+                          });
+                        }, 100);
+                      }}
+                    >
                       查看登机牌
                     </Button>
                   </div>
                 </div>
               </CardContent>
             </Card>
+          )}
+
+          {/* Boarding Pass Section */}
+          {showBoardingPass && checkedIn && selectedSeat && (
+            <div id="boarding-pass-section" className="scroll-mt-8">
+              <BoardingPass
+                passengerName={userInfo.name}
+                bookingReference="GO-2847"
+                seatNumber={selectedSeat}
+                baggageAllowance={baggageOptions.find(b => b.id === selectedBaggage)?.weight || "无托运"}
+                flightNumber={flightInfo.flightNumber}
+                airline={flightInfo.airline}
+                departure={{
+                  code: "PEK",
+                  city: flightInfo.departure.city,
+                  airport: flightInfo.departure.airport,
+                  time: flightInfo.departure.time.split(' ')[1]
+                }}
+                arrival={{
+                  code: "PVG",
+                  city: flightInfo.arrival.city,
+                  airport: flightInfo.arrival.airport,
+                  time: flightInfo.arrival.time.split(' ')[1]
+                }}
+                boardingTime={flightInfo.departure.time}
+                ticketNumber="647RT799"
+                gate={flightInfo.departure.gate}
+                cabinClass={
+                  userInfo.cabinClass === "first" ? "头等舱" : 
+                  userInfo.cabinClass === "business" ? "商务舱" : 
+                  "经济舱"
+                }
+              />
+            </div>
           )}
         </div>
       </main>
