@@ -197,116 +197,117 @@ const CheckIn = () => {
                           {selectedSeat ? "重新选择" : "选择座位"}
                         </Button>
                       </DialogTrigger>
-                      <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
+                      <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto bg-slate-900 text-white border-slate-700">
                         <DialogHeader>
-                          <DialogTitle>选择座位</DialogTitle>
-                          <div className="flex items-center gap-6 text-sm pt-4">
+                          <DialogTitle className="text-white text-center text-xl">选择座位</DialogTitle>
+                          <div className="flex items-center justify-center gap-6 text-sm pt-4">
                             <div className="flex items-center gap-2">
-                              <div className="w-8 h-8 rounded border-2 border-primary bg-background"></div>
-                              <span>可选</span>
+                              <div className="w-8 h-8 rounded-lg bg-slate-700 border border-slate-600"></div>
+                              <span className="text-slate-300">可选</span>
                             </div>
                             <div className="flex items-center gap-2">
-                              <div className="w-8 h-8 rounded bg-primary"></div>
-                              <span>已选</span>
+                              <div className="w-8 h-8 rounded-lg bg-cyan-500"></div>
+                              <span className="text-slate-300">已选</span>
                             </div>
                             <div className="flex items-center gap-2">
-                              <div className="w-8 h-8 rounded bg-muted"></div>
-                              <span>已占用</span>
+                              <div className="w-8 h-8 rounded-lg bg-slate-600/50"></div>
+                              <span className="text-slate-300">已占用</span>
                             </div>
                           </div>
                         </DialogHeader>
                         <div className="py-6">
-                          <div className="overflow-x-auto">
-                            <div className="inline-block min-w-full">
-                              {/* Airplane nose */}
-                              <div className="flex justify-center mb-6">
-                                <div className="w-16 h-12 bg-gradient-to-b from-primary/20 to-transparent rounded-t-full border-2 border-primary/30"></div>
-                              </div>
-                              
-                              {/* Column headers */}
-                              <div className="flex gap-2 justify-center mb-4">
-                                <div className="w-8"></div>
-                                {columns.slice(0, 3).map((col) => (
-                                  <div key={col} className="w-10 text-center font-medium text-sm">
-                                    {col}
-                                  </div>
-                                ))}
-                                <div className="w-12"></div>
-                                {columns.slice(3).map((col) => (
-                                  <div key={col} className="w-10 text-center font-medium text-sm">
-                                    {col}
-                                  </div>
-                                ))}
-                              </div>
-
-                              {/* Seat rows with airplane body */}
-                              <div className="relative">
+                          <div className="flex justify-center">
+                            <div className="relative">
+                              {/* Airplane body shape */}
+                              <div className="relative bg-gradient-to-b from-slate-700 via-slate-800 to-slate-700 rounded-t-[120px] rounded-b-3xl px-8 py-6 shadow-2xl">
+                                {/* Airplane nose curve */}
+                                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-24 bg-gradient-to-b from-slate-600 to-slate-700 rounded-t-full -translate-y-8"></div>
+                                
                                 {/* Left wing */}
-                                <div className="absolute left-0 top-[35%] w-12 h-24 bg-gradient-to-r from-transparent via-primary/10 to-primary/20 rounded-l-full border-l-2 border-primary/30 -translate-x-full"></div>
+                                <div className="absolute left-0 top-32 w-16 h-20 bg-gradient-to-br from-slate-600 to-slate-700 rounded-l-full -translate-x-12 shadow-lg"></div>
                                 
                                 {/* Right wing */}
-                                <div className="absolute right-0 top-[35%] w-12 h-24 bg-gradient-to-l from-transparent via-primary/10 to-primary/20 rounded-r-full border-r-2 border-primary/30 translate-x-full"></div>
+                                <div className="absolute right-0 top-32 w-16 h-20 bg-gradient-to-bl from-slate-600 to-slate-700 rounded-r-full translate-x-12 shadow-lg"></div>
                                 
-                                <div className="space-y-2 bg-gradient-to-b from-primary/5 via-background to-primary/5 rounded-lg py-4 px-2 border-x-2 border-primary/20">
-                                  {Array.from({ length: totalRows }, (_, i) => i + 1).map((row) => (
-                                    <div key={row} className="flex gap-2 justify-center items-center">
-                                    <div className="w-8 text-center text-sm font-medium text-muted-foreground">
-                                      {row}
-                                    </div>
-                                    {columns.slice(0, 3).map((col) => {
-                                      const seatId = `${row}${col}`;
-                                      const status = getSeatStatus(seatId);
-                                      return (
-                                        <button
-                                          key={seatId}
-                                          onClick={() => handleSeatSelect(seatId)}
-                                          disabled={status === "occupied"}
-                                          className={`w-10 h-10 rounded text-xs font-medium transition-all ${
-                                            status === "occupied"
-                                              ? "bg-muted cursor-not-allowed"
-                                              : status === "selected"
-                                              ? "bg-primary text-primary-foreground"
-                                              : "border-2 border-primary hover:bg-primary/10"
-                                          } ${exitRows.includes(row) ? "ring-2 ring-accent" : ""}`}
-                                        >
-                                          {seatId}
-                                        </button>
-                                      );
-                                    })}
-                                    <div className="w-12"></div>
-                                    {columns.slice(3).map((col) => {
-                                      const seatId = `${row}${col}`;
-                                      const status = getSeatStatus(seatId);
-                                      return (
-                                        <button
-                                          key={seatId}
-                                          onClick={() => handleSeatSelect(seatId)}
-                                          disabled={status === "occupied"}
-                                          className={`w-10 h-10 rounded text-xs font-medium transition-all ${
-                                            status === "occupied"
-                                              ? "bg-muted cursor-not-allowed"
-                                              : status === "selected"
-                                              ? "bg-primary text-primary-foreground"
-                                              : "border-2 border-primary hover:bg-primary/10"
-                                          } ${exitRows.includes(row) ? "ring-2 ring-accent" : ""}`}
-                                        >
-                                          {seatId}
-                                        </button>
-                                      );
-                                    })}
+                                <div className="relative pt-8 space-y-6">
+                                  {/* Business Class Section */}
+                                  <div className="text-center mb-4">
+                                    <span className="text-slate-300 font-medium text-sm">Business Class</span>
                                   </div>
-                                  ))}
-                                </div>
+                                  
+                                  {/* Column headers */}
+                                  <div className="flex gap-3 justify-center mb-2">
+                                    <div className="w-10"></div>
+                                    {columns.slice(0, 3).map((col) => (
+                                      <div key={col} className="w-12 text-center font-medium text-xs text-slate-400">
+                                        {col}
+                                      </div>
+                                    ))}
+                                    <div className="w-8"></div>
+                                    {columns.slice(3).map((col) => (
+                                      <div key={col} className="w-12 text-center font-medium text-xs text-slate-400">
+                                        {col}
+                                      </div>
+                                    ))}
                               </div>
-                              
-                              {/* Airplane tail */}
-                              <div className="flex justify-center mt-6">
-                                <div className="w-20 h-8 bg-gradient-to-t from-primary/20 to-transparent rounded-b-lg border-2 border-t-0 border-primary/30"></div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </DialogContent>
+
+                                  {/* Seat rows */}
+                                  <div className="space-y-2 max-h-[500px] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-slate-600 scrollbar-track-slate-800">
+                                    {Array.from({ length: totalRows }, (_, i) => i + 1).map((row) => (
+                                      <div key={row} className="flex gap-3 justify-center items-center">
+                                        <div className="w-10 text-center text-xs font-medium text-slate-500">
+                                          {row}
+                                        </div>
+                                        {columns.slice(0, 3).map((col) => {
+                                          const seatId = `${row}${col}`;
+                                          const status = getSeatStatus(seatId);
+                                          return (
+                                            <button
+                                              key={seatId}
+                                              onClick={() => handleSeatSelect(seatId)}
+                                              disabled={status === "occupied"}
+                                              className={`w-12 h-12 rounded-lg text-xs font-semibold transition-all shadow-md ${
+                                                status === "occupied"
+                                                  ? "bg-slate-600/50 cursor-not-allowed text-slate-500"
+                                                  : status === "selected"
+                                                  ? "bg-cyan-500 text-white hover:bg-cyan-600 scale-105"
+                                                  : "bg-slate-700 text-slate-300 border border-slate-600 hover:bg-slate-600 hover:border-cyan-500 hover:scale-105"
+                                              } ${exitRows.includes(row) ? "ring-2 ring-yellow-500/50" : ""}`}
+                                            >
+                                              {seatId}
+                                            </button>
+                                          );
+                                        })}
+                                        <div className="w-8"></div>
+                                        {columns.slice(3).map((col) => {
+                                          const seatId = `${row}${col}`;
+                                          const status = getSeatStatus(seatId);
+                                          return (
+                                            <button
+                                              key={seatId}
+                                              onClick={() => handleSeatSelect(seatId)}
+                                              disabled={status === "occupied"}
+                                              className={`w-12 h-12 rounded-lg text-xs font-semibold transition-all shadow-md ${
+                                                status === "occupied"
+                                                  ? "bg-slate-600/50 cursor-not-allowed text-slate-500"
+                                                  : status === "selected"
+                                                  ? "bg-cyan-500 text-white hover:bg-cyan-600 scale-105"
+                                                  : "bg-slate-700 text-slate-300 border border-slate-600 hover:bg-slate-600 hover:border-cyan-500 hover:scale-105"
+                                              } ${exitRows.includes(row) ? "ring-2 ring-yellow-500/50" : ""}`}
+                                            >
+                                              {seatId}
+                                            </button>
+                                          );
+                                         })}
+                                       </div>
+                                     ))}
+                                   </div>
+                                 </div>
+                               </div>
+                             </div>
+                           </div>
+                         </div>
+                       </DialogContent>
                     </Dialog>
                   </div>
                 </CardContent>
