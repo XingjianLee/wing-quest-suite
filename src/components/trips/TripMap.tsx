@@ -21,7 +21,7 @@ const TripMap = ({ locations }: TripMapProps) => {
   useEffect(() => {
     if (!mapContainer.current) return;
 
-    mapboxgl.accessToken = "tkxxxx";
+    mapboxgl.accessToken = "pk.eyJ1IjoiZmVsaXhsaSIsImEiOiJjbWcyNTU3cTAwczQwMmxzY2w0eHprOW16In0.OoQurnF28QpCHFm9WMyXQA";
 
     try {
       map.current = new mapboxgl.Map({
