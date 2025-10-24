@@ -16,6 +16,7 @@ import Profile from "./pages/Profile";
 import CheckIn from "./pages/CheckIn";
 import PriceCalendar from "./pages/PriceCalendar";
 import TravelAssistant from "./pages/TravelAssistant";
+import RefundChange from "./pages/RefundChange";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -40,6 +41,7 @@ const App = () => (
           <Route path="/check-in" element={<CheckIn />} />
           <Route path="/price-calendar" element={<PriceCalendar />} />
           <Route path="/travel-assistant" element={<TravelAssistant />} />
+          <Route path="/refund-change" element={<RefundChange />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
