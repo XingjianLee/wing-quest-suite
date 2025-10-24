@@ -1,11 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { Card } from "@/components/ui/card";
 import {
-  Plane,
-  Hotel,
-  Ticket,
-  FileText,
-  Map,
   RefreshCw,
   Headphones,
   CheckCircle2,
@@ -19,46 +14,6 @@ const services = [
     description: "提前选座",
     route: "/check-in",
     color: "from-blue-500 to-cyan-500",
-  },
-  {
-    id: "flight",
-    name: "预订机票",
-    icon: Plane,
-    description: "特价机票",
-    route: "/book-flight",
-    color: "from-purple-500 to-pink-500",
-  },
-  {
-    id: "hotel",
-    name: "预订酒店",
-    icon: Hotel,
-    description: "品质住宿",
-    route: "/book-hotel",
-    color: "from-orange-500 to-amber-500",
-  },
-  {
-    id: "ticket",
-    name: "景点门票",
-    icon: Ticket,
-    description: "热门景点",
-    route: "/book-ticket",
-    color: "from-green-500 to-emerald-500",
-  },
-  {
-    id: "orders",
-    name: "我的订单",
-    icon: FileText,
-    description: "订单管理",
-    route: "/my-orders",
-    color: "from-red-500 to-rose-500",
-  },
-  {
-    id: "trips",
-    name: "我的行程",
-    icon: Map,
-    description: "行程规划",
-    route: "/my-trips",
-    color: "from-indigo-500 to-blue-500",
   },
   {
     id: "refund",
@@ -89,7 +44,7 @@ const QuickServicesBar = () => {
           <p className="text-sm text-muted-foreground">一站式旅行服务平台</p>
         </div>
         
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-3">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 max-w-3xl mx-auto">
           {services.map((service) => (
             <Card
               key={service.id}
