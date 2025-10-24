@@ -170,46 +170,44 @@ export default function BookFlight() {
     <div className="min-h-screen bg-secondary/30">
       <Navbar isLoggedIn={true} />
       
-      <div className="pt-20">
-        {/* Search Bar - Sticky */}
-        <div className="sticky top-[72px] z-30 bg-background border-b border-border/50 pb-4">
-          <div className="container mx-auto px-4 pt-4">
+      <div className="pt-20 flex h-[calc(100vh-5rem)]">
+        {/* Left Sidebar - Fixed Filters */}
+        <div className="w-80 flex-shrink-0 overflow-y-auto border-r border-border/50 bg-background p-4">
+          <FlightFilters filters={filters} onFilterChange={handleFilterChange} />
+        </div>
+
+        {/* Right Content Area */}
+        <div className="flex-1 flex flex-col overflow-hidden">
+          {/* Search Bar - Sticky at top */}
+          <div className="sticky top-0 z-30 bg-background border-b border-border/50 p-4 flex-shrink-0">
             <FlightSearchBar />
           </div>
-        </div>
 
-        {/* Main Content */}
-        <div className="container mx-auto px-4 py-6">
-          <div className="flex gap-6">
-          {/* Left Sidebar - Filters */}
-          <div className="w-80 flex-shrink-0">
-            <FlightFilters filters={filters} onFilterChange={handleFilterChange} />
-          </div>
-
-          {/* Right Content - Flight List */}
-          <div className="flex-1">
-            <div className="mb-4 flex items-center justify-between">
-              <h2 className="text-xl font-semibold text-foreground">
-                找到 {filteredFlights.length} 个航班
-              </h2>
-            </div>
-
-            <div className="space-y-4">
-              {filteredFlights.map(flight => (
-                <FlightCard key={flight.id} flight={flight} />
-              ))}
-            </div>
-
-            {filteredFlights.length === 0 && (
-              <div className="bg-card rounded-lg p-12 text-center shadow-card">
-                <p className="text-muted-foreground text-lg">
-                  没有找到符合条件的航班，请调整搜索条件
-                </p>
+          {/* Scrollable Flight List */}
+          <div className="flex-1 overflow-y-auto">
+            <div className="container mx-auto px-4 py-6">
+              <div className="mb-4 flex items-center justify-between">
+                <h2 className="text-xl font-semibold text-foreground">
+                  找到 {filteredFlights.length} 个航班
+                </h2>
               </div>
-            )}
+
+              <div className="space-y-4">
+                {filteredFlights.map(flight => (
+                  <FlightCard key={flight.id} flight={flight} />
+                ))}
+              </div>
+
+              {filteredFlights.length === 0 && (
+                <div className="bg-card rounded-lg p-12 text-center shadow-card">
+                  <p className="text-muted-foreground text-lg">
+                    没有找到符合条件的航班，请调整搜索条件
+                  </p>
+                </div>
+              )}
+            </div>
           </div>
         </div>
-      </div>
       </div>
     </div>
   );
