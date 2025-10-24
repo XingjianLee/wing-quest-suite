@@ -76,7 +76,7 @@ const Auth = () => {
           <span className="text-3xl font-bold text-primary">SkyTrip</span>
         </div>
 
-        <Card className="border-border/50 shadow-elegant backdrop-blur-md bg-background/98 animate-fade-in-up">
+        <Card className="border-border/50 shadow-elegant backdrop-blur-xl bg-background/85 animate-fade-in-up">
           <CardHeader className="space-y-1">
             <CardTitle className="text-2xl font-bold text-center">欢迎回来</CardTitle>
             <CardDescription className="text-center">
