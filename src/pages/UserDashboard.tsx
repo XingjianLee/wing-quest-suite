@@ -68,30 +68,42 @@ const UserDashboard = () => {
     }
   ];
 
-  const flights = [
+  const recommendedRoutes = [
     {
       id: 1,
-      airline: "航空公司",
-      color: "bg-gradient-to-br from-green-400 to-green-600",
-      departure: "6:30pm",
-      arrival: "2:30am",
-      departureDate: "2月2日，周日",
-      arrivalDate: "2月2日，周一",
-      seat: "18B, 19A",
-      terminal: "Y4",
-      gate: "8"
+      route: "成都 → 上海",
+      color: "bg-gradient-to-br from-blue-500 to-cyan-500",
+      priceFrom: 680,
+      duration: "2小时30分",
+      popularity: "热门航线",
+      tags: ["直飞", "快速"],
+      reason: "商务出行首选，航班密集",
+      flights: "每日20+班次",
+      bestTime: "早班/晚班"
     },
     {
       id: 2,
-      airline: "航空公司",
-      color: "bg-gradient-to-br from-orange-400 to-orange-600",
-      departure: "4:30pm",
-      arrival: "11:20pm",
-      departureDate: "2月2日，周日",
-      arrivalDate: "2月2日，周日",
-      seat: "12C, 12D",
-      terminal: "Y2",
-      gate: "5"
+      route: "成都 → 北京",
+      color: "bg-gradient-to-br from-purple-500 to-pink-500",
+      priceFrom: 750,
+      duration: "2小时45分",
+      popularity: "精品路线",
+      tags: ["直飞", "舒适"],
+      reason: "多家航司运营，价格实惠",
+      flights: "每日15+班次",
+      bestTime: "全天候"
+    },
+    {
+      id: 3,
+      route: "上海 → 三亚",
+      color: "bg-gradient-to-br from-orange-500 to-amber-500",
+      priceFrom: 580,
+      duration: "3小时20分",
+      popularity: "度假推荐",
+      tags: ["度假", "海岛"],
+      reason: "休闲度假热门目的地",
+      flights: "每日12+班次",
+      bestTime: "早班优惠"
     }
   ];
 
@@ -280,7 +292,7 @@ const UserDashboard = () => {
                 </div>
                 
                 <div className="flex items-center justify-between">
-                  <p className="text-lg font-semibold">已找到 {flights.length} 张机票</p>
+                  <p className="text-lg font-semibold">推荐 {recommendedRoutes.length} 条热门航线</p>
                   <Button variant="ghost" size="sm">
                     <Filter className="w-4 h-4" />
                   </Button>
@@ -288,50 +300,76 @@ const UserDashboard = () => {
               </CardContent>
             </Card>
 
-            {/* 航班列表 */}
+            {/* 推荐航线列表 */}
             <div className="space-y-4">
-              {flights.map((flight) => (
-                <Card key={flight.id} className="border-0 shadow-lg hover:shadow-xl transition-all overflow-hidden group">
-                  <div className="flex">
-                    <div className={`${flight.color} w-20 flex items-center justify-center relative`}>
-                      <p className="text-white font-bold text-sm [writing-mode:vertical-lr] rotate-180 tracking-wider">
-                        航空公司
-                      </p>
-                    </div>
+              {recommendedRoutes.map((route) => (
+                <Card 
+                  key={route.id} 
+                  className="border-0 shadow-lg hover:shadow-xl transition-all overflow-hidden group cursor-pointer"
+                  onClick={() => navigate("/book-flight")}
+                >
+                  <div className="relative">
+                    {/* 顶部彩色条 */}
+                    <div className={`${route.color} h-2`}></div>
                     
-                    <div className="flex-1 p-6">
-                      <div className="grid grid-cols-3 gap-6 mb-4">
-                        <div>
-                          <p className="text-xs text-muted-foreground mb-1">{origin}</p>
-                          <p className="text-3xl font-bold mb-1">{flight.departure}</p>
-                          <p className="text-xs text-muted-foreground">{flight.departureDate}</p>
-                        </div>
-                        
-                        <div className="flex items-center justify-center">
-                          <Plane className="w-6 h-6 text-muted-foreground" />
+                    <div className="p-6">
+                      {/* 航线和价格 */}
+                      <div className="flex items-start justify-between mb-4">
+                        <div className="flex-1">
+                          <div className="flex items-center gap-2 mb-2">
+                            <h3 className="text-2xl font-bold">{route.route}</h3>
+                            <Badge variant="secondary" className="text-xs">
+                              {route.popularity}
+                            </Badge>
+                          </div>
+                          <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                            <div className="flex items-center gap-1">
+                              <Clock className="w-4 h-4" />
+                              <span>{route.duration}</span>
+                            </div>
+                            <div className="flex items-center gap-1">
+                              <Plane className="w-4 h-4" />
+                              <span>{route.flights}</span>
+                            </div>
+                          </div>
                         </div>
                         
                         <div className="text-right">
-                          <p className="text-xs text-muted-foreground mb-1">{destination}</p>
-                          <p className="text-3xl font-bold mb-1">{flight.arrival}</p>
-                          <p className="text-xs text-muted-foreground">{flight.arrivalDate}</p>
+                          <p className="text-sm text-muted-foreground mb-1">最低价</p>
+                          <p className="text-3xl font-bold text-primary">
+                            ¥{route.priceFrom}
+                            <span className="text-sm font-normal text-muted-foreground ml-1">起</span>
+                          </p>
                         </div>
                       </div>
                       
-                      <div className="grid grid-cols-3 gap-4 text-sm">
-                        <div>
-                          <p className="text-muted-foreground mb-1">座位</p>
-                          <p className="font-semibold">{flight.seat}</p>
+                      {/* 标签和推荐理由 */}
+                      <div className="space-y-3">
+                        <div className="flex gap-2">
+                          {route.tags.map((tag, idx) => (
+                            <Badge key={idx} variant="outline" className="text-xs">
+                              {tag}
+                            </Badge>
+                          ))}
+                          <Badge variant="outline" className="text-xs">
+                            {route.bestTime}
+                          </Badge>
                         </div>
-                        <div>
-                          <p className="text-muted-foreground mb-1">航站楼</p>
-                          <p className="font-semibold">{flight.terminal}</p>
-                        </div>
-                        <div>
-                          <p className="text-muted-foreground mb-1">登机口</p>
-                          <p className="font-semibold">{flight.gate}</p>
-                        </div>
+                        
+                        <p className="text-sm text-muted-foreground flex items-start gap-2">
+                          <Star className="w-4 h-4 flex-shrink-0 mt-0.5 text-amber-500 fill-amber-500" />
+                          <span>{route.reason}</span>
+                        </p>
                       </div>
+                      
+                      {/* 查看按钮 */}
+                      <Button 
+                        className="w-full mt-4 group-hover:shadow-lg transition-all"
+                        variant="default"
+                      >
+                        <span>查看航班</span>
+                        <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                      </Button>
                     </div>
                   </div>
                 </Card>
