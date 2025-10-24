@@ -166,9 +166,9 @@ export default function BookFlight() {
     });
 
   return (
-    <div className="min-h-screen bg-secondary/30">
+    <div className="min-h-screen bg-secondary/30 pt-20">
       {/* Fixed Search Bar */}
-      <div className="sticky top-0 z-40 bg-background shadow-card">
+      <div className="sticky top-[72px] z-40 bg-background shadow-card">
         <FlightSearchBar />
       </div>
 
