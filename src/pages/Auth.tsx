@@ -7,7 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Plane, Mail, Lock, User } from "lucide-react";
 import { toast } from "sonner";
-import authBackground from "@/assets/auth-background-luxury.jpg";
+import authBackground from "@/assets/auth-background-premium.jpg";
 
 // 写死的测试用户
 const MOCK_USER = {
