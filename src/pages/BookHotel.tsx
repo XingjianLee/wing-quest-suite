@@ -12,20 +12,20 @@ import Footer from "@/components/Footer";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 
 const propertyTypes = [
-  { icon: "🏠", label: "Villa", value: "villa" },
-  { icon: "🏨", label: "Hotel", value: "hotel" },
-  { icon: "🏢", label: "Apartment", value: "apartment" },
-  { icon: "🏡", label: "Guesthouse", value: "guesthouse" },
-  { icon: "🎫", label: "Voucher", value: "voucher" },
-  { icon: "💰", label: "BIG DEAL", value: "deal" },
-  { icon: "✅", label: "To Do", value: "todo" },
+  { icon: "🏠", label: "别墅", value: "villa" },
+  { icon: "🏨", label: "酒店", value: "hotel" },
+  { icon: "🏢", label: "公寓", value: "apartment" },
+  { icon: "🏡", label: "民宿", value: "guesthouse" },
+  { icon: "🎫", label: "优惠券", value: "voucher" },
+  { icon: "💰", label: "超值优惠", value: "deal" },
+  { icon: "✅", label: "待办", value: "todo" },
 ];
 
 const mockHotels = [
   {
     id: 1,
-    name: "Beautiful Malibu Mansion",
-    location: "2464 Royal Ln. Mesa, New Jersey 45463",
+    name: "马里布海景豪宅",
+    location: "北京市朝阳区建国路88号",
     rating: 4.8,
     beds: 3,
     baths: 1,
@@ -34,8 +34,8 @@ const mockHotels = [
   },
   {
     id: 2,
-    name: "Starlit Summit Cabin",
-    location: "2464 Royal Ln. Mesa, New Jersey 45463",
+    name: "星光山顶小屋",
+    location: "上海市浦东新区陆家嘴环路1000号",
     rating: 4.8,
     beds: 3,
     baths: 1,
@@ -44,8 +44,8 @@ const mockHotels = [
   },
   {
     id: 3,
-    name: "Moonlit Timber Haven",
-    location: "2464 Royal Ln. Mesa, New Jersey 45463",
+    name: "月光木屋度假村",
+    location: "广州市天河区珠江新城花城大道123号",
     rating: 4.8,
     beds: 3,
     baths: 1,
@@ -54,8 +54,8 @@ const mockHotels = [
   },
   {
     id: 4,
-    name: "Crystal Lake Hideout",
-    location: "2464 Royal Ln. Mesa, New Jersey 45463",
+    name: "水晶湖畔别墅",
+    location: "深圳市南山区科技园南区深南大道9988号",
     rating: 4.8,
     beds: 3,
     baths: 2,
@@ -65,10 +65,10 @@ const mockHotels = [
 ];
 
 const BookHotel = () => {
-  const [location, setLocation] = useState("Toronto, Canada");
-  const [checkIn, setCheckIn] = useState("Jan. 5, 2024");
-  const [checkOut, setCheckOut] = useState("Jan. 25, 2024");
-  const [guests, setGuests] = useState("4 Adults");
+  const [location, setLocation] = useState("北京");
+  const [checkIn, setCheckIn] = useState("2024年1月5日");
+  const [checkOut, setCheckOut] = useState("2024年1月25日");
+  const [guests, setGuests] = useState("4位成人");
   const [priceRange, setPriceRange] = useState([120, 700]);
   const [selectedTypes, setSelectedTypes] = useState<string[]>(["villa"]);
 
@@ -91,10 +91,10 @@ const BookHotel = () => {
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto text-center mb-8">
             <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
-              Enjoy your journey without limits
+              享受无限精彩旅程
             </h1>
             <p className="text-muted-foreground text-lg">
-              Find accommodations and exciting experiences
+              寻找理想住宿和精彩体验
             </p>
           </div>
 
@@ -107,7 +107,7 @@ const BookHotel = () => {
                   value={location}
                   onChange={(e) => setLocation(e.target.value)}
                   className="border-0 bg-transparent p-0 focus-visible:ring-0"
-                  placeholder="Where"
+                  placeholder="目的地"
                 />
               </div>
               <div className="flex-1 flex items-center gap-2 px-4 py-3 rounded-md bg-accent/5">
@@ -116,7 +116,7 @@ const BookHotel = () => {
                   value={checkIn}
                   onChange={(e) => setCheckIn(e.target.value)}
                   className="border-0 bg-transparent p-0 focus-visible:ring-0"
-                  placeholder="Check-in"
+                  placeholder="入住日期"
                 />
               </div>
               <div className="flex-1 flex items-center gap-2 px-4 py-3 rounded-md bg-accent/5">
@@ -125,7 +125,7 @@ const BookHotel = () => {
                   value={checkOut}
                   onChange={(e) => setCheckOut(e.target.value)}
                   className="border-0 bg-transparent p-0 focus-visible:ring-0"
-                  placeholder="Check-out"
+                  placeholder="退房日期"
                 />
               </div>
               <div className="flex-1 flex items-center gap-2 px-4 py-3 rounded-md bg-accent/5">
@@ -134,12 +134,12 @@ const BookHotel = () => {
                   value={guests}
                   onChange={(e) => setGuests(e.target.value)}
                   className="border-0 bg-transparent p-0 focus-visible:ring-0"
-                  placeholder="Guests"
+                  placeholder="入住人数"
                 />
               </div>
               <Button size="lg" className="gap-2 px-8">
                 <Search className="w-5 h-5" />
-                Search
+                搜索
               </Button>
             </div>
           </Card>
@@ -180,15 +180,15 @@ const BookHotel = () => {
             <div className="lg:w-80 shrink-0">
               <Card className="p-6 sticky top-24">
                 <div className="flex items-center justify-between mb-6">
-                  <h3 className="text-lg font-semibold">Filters</h3>
-                  <Button variant="ghost" size="sm">Clear all (3)</Button>
+                  <h3 className="text-lg font-semibold">筛选条件</h3>
+                  <Button variant="ghost" size="sm">清除全部 (3)</Button>
                 </div>
 
                 {/* Price Range */}
                 <div className="mb-6">
-                  <Label className="mb-4 block font-semibold">Price range</Label>
+                  <Label className="mb-4 block font-semibold">价格区间</Label>
                   <p className="text-sm text-muted-foreground mb-4">
-                    The average total price for 12 nights is $2,694
+                    12晚的平均总价为 ¥2,694
                   </p>
                   <div className="space-y-4">
                     <Slider
@@ -200,16 +200,16 @@ const BookHotel = () => {
                     />
                     <div className="flex gap-4">
                       <div className="flex-1">
-                        <Label className="text-xs">Minimum</Label>
+                        <Label className="text-xs">最低价</Label>
                         <div className="flex items-center gap-2 border rounded-md px-3 py-2 mt-1">
-                          <span className="text-muted-foreground">$</span>
+                          <span className="text-muted-foreground">¥</span>
                           <span>{priceRange[0]}</span>
                         </div>
                       </div>
                       <div className="flex-1">
-                        <Label className="text-xs">Maximum</Label>
+                        <Label className="text-xs">最高价</Label>
                         <div className="flex items-center gap-2 border rounded-md px-3 py-2 mt-1">
-                          <span className="text-muted-foreground">$</span>
+                          <span className="text-muted-foreground">¥</span>
                           <span>{priceRange[1]}</span>
                         </div>
                       </div>
@@ -219,16 +219,16 @@ const BookHotel = () => {
 
                 {/* Type of place */}
                 <div className="mb-6">
-                  <Label className="mb-4 block font-semibold">Type of place</Label>
+                  <Label className="mb-4 block font-semibold">房源类型</Label>
                   <div className="space-y-3">
                     <div className="flex items-start space-x-3">
                       <Checkbox id="entire" defaultChecked />
                       <div className="space-y-1">
                         <label htmlFor="entire" className="text-sm font-medium leading-none">
-                          Entire place
+                          整套房源
                         </label>
                         <p className="text-sm text-muted-foreground">
-                          A place all to yourself
+                          独享整套房源
                         </p>
                       </div>
                     </div>
@@ -236,10 +236,10 @@ const BookHotel = () => {
                       <Checkbox id="room" defaultChecked />
                       <div className="space-y-1">
                         <label htmlFor="room" className="text-sm font-medium leading-none">
-                          Room
+                          独立房间
                         </label>
                         <p className="text-sm text-muted-foreground">
-                          Your own room, plus access to shared spaces
+                          拥有独立房间，可使用共享空间
                         </p>
                       </div>
                     </div>
@@ -248,12 +248,12 @@ const BookHotel = () => {
 
                 {/* Rooms and beds */}
                 <div className="mb-6">
-                  <Label className="mb-4 block font-semibold">Rooms and beds</Label>
+                  <Label className="mb-4 block font-semibold">房间和床位</Label>
                   <div className="space-y-4">
                     <div>
-                      <Label className="text-sm mb-2 block">Bedrooms</Label>
+                      <Label className="text-sm mb-2 block">卧室</Label>
                       <div className="flex gap-2">
-                        {["Any", "1", "2", "3", "4", "5"].map((num) => (
+                        {["不限", "1", "2", "3", "4", "5"].map((num) => (
                           <Button
                             key={num}
                             variant="outline"
@@ -266,9 +266,9 @@ const BookHotel = () => {
                       </div>
                     </div>
                     <div>
-                      <Label className="text-sm mb-2 block">Beds</Label>
+                      <Label className="text-sm mb-2 block">床位</Label>
                       <div className="flex gap-2">
-                        {["Any", "1", "2", "3", "4", "5"].map((num) => (
+                        {["不限", "1", "2", "3", "4", "5"].map((num) => (
                           <Button
                             key={num}
                             variant="outline"
@@ -285,19 +285,19 @@ const BookHotel = () => {
 
                 {/* Property type */}
                 <div>
-                  <Label className="mb-4 block font-semibold">Property type</Label>
+                  <Label className="mb-4 block font-semibold">住宿类型</Label>
                   <div className="grid grid-cols-2 gap-3">
                     <Button variant="outline" className="justify-start gap-2">
-                      🏠 House
+                      🏠 房屋
                     </Button>
                     <Button variant="outline" className="justify-start gap-2">
-                      🏢 Apartment
+                      🏢 公寓
                     </Button>
                     <Button variant="outline" className="justify-start gap-2">
-                      🏡 Villa
+                      🏡 别墅
                     </Button>
                     <Button variant="outline" className="justify-start gap-2">
-                      🏨 Hotel
+                      🏨 酒店
                     </Button>
                   </div>
                 </div>
@@ -309,7 +309,7 @@ const BookHotel = () => {
               <div className="flex items-center justify-between mb-6">
                 <div>
                   <h2 className="text-2xl font-bold mb-1">
-                    Found 1024 results near <span className="text-primary">Toronto, Canada</span>
+                    在<span className="text-primary">北京</span>附近找到 1024 个结果
                   </h2>
                 </div>
                 <div className="flex gap-2">
@@ -317,19 +317,19 @@ const BookHotel = () => {
                     <SheetTrigger asChild>
                       <Button variant="outline" size="sm" className="lg:hidden gap-2">
                         <SlidersHorizontal className="w-4 h-4" />
-                        Filters
+                        筛选
                       </Button>
                     </SheetTrigger>
                     <SheetContent>
                       <SheetHeader>
-                        <SheetTitle>Filters</SheetTitle>
+                        <SheetTitle>筛选条件</SheetTitle>
                       </SheetHeader>
                       {/* Mobile filters - same content as sidebar */}
                     </SheetContent>
                   </Sheet>
-                  <Button variant="outline" size="sm">Latest</Button>
-                  <Button variant="outline" size="sm">Map View</Button>
-                  <Button variant="outline" size="sm">Card View</Button>
+                  <Button variant="outline" size="sm">最新</Button>
+                  <Button variant="outline" size="sm">地图视图</Button>
+                  <Button variant="outline" size="sm">卡片视图</Button>
                 </div>
               </div>
 
@@ -366,13 +366,13 @@ const BookHotel = () => {
                       </p>
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-4 text-sm text-muted-foreground">
-                          <span>🛏️ {hotel.beds} bed</span>
-                          <span>🚿 {hotel.baths} bath</span>
+                          <span>🛏️ {hotel.beds}室</span>
+                          <span>🚿 {hotel.baths}卫</span>
                         </div>
                         <div className="text-right">
                           <div className="text-2xl font-bold text-primary">
-                            ${hotel.price}
-                            <span className="text-sm font-normal text-muted-foreground">/night</span>
+                            ¥{hotel.price}
+                            <span className="text-sm font-normal text-muted-foreground">/晚</span>
                           </div>
                         </div>
                       </div>
