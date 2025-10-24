@@ -117,7 +117,7 @@ const CheckIn = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-b from-background to-secondary/20">
-      <Navbar />
+      <Navbar isLoggedIn={true} />
       
       <main className="flex-1 container mx-auto px-4 py-8">
         <div className="max-w-6xl mx-auto space-y-6">
