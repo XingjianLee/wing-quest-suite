@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { User, Phone, Mail, MapPin, Calendar, CreditCard, Shield, Heart, Globe, Bell, Camera, Save, Pencil, X, Check } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { User, Phone, Mail, MapPin, Calendar, CreditCard, Shield, Heart, Globe, Bell, Camera, Save, Pencil, X, Check, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -16,10 +17,18 @@ import Footer from "@/components/Footer";
 import { toast } from "sonner";
 
 const Profile = () => {
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [nickname, setNickname] = useState("张伟");
   const [isEditingNickname, setIsEditingNickname] = useState(false);
   const [tempNickname, setTempNickname] = useState(nickname);
+  
+  const handleLogout = () => {
+    localStorage.removeItem("isLoggedIn");
+    localStorage.removeItem("user");
+    toast.success("已退出登录");
+    navigate("/auth");
+  };
   
   const handleSave = async () => {
     setLoading(true);
@@ -636,6 +645,17 @@ const Profile = () => {
                       <p className="text-sm text-muted-foreground">更改您的登录密码</p>
                     </div>
                     <Button variant="outline">修改</Button>
+                  </div>
+                  <Separator />
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <LogOut className="w-4 h-4" />
+                      <div>
+                        <p className="font-medium">退出登录</p>
+                        <p className="text-sm text-muted-foreground">退出当前账号</p>
+                      </div>
+                    </div>
+                    <Button variant="outline" onClick={handleLogout}>退出</Button>
                   </div>
                   <Separator />
                   <div className="flex items-center justify-between">

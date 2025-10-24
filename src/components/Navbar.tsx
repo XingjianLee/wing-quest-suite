@@ -1,14 +1,6 @@
 import { Button } from "@/components/ui/button";
-import { Plane, User, LogOut } from "lucide-react";
+import { Plane, User } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { toast } from "sonner";
 
 interface NavbarProps {
@@ -17,13 +9,6 @@ interface NavbarProps {
 
 const Navbar = ({ isLoggedIn = false }: NavbarProps) => {
   const navigate = useNavigate();
-
-  const handleLogout = () => {
-    localStorage.removeItem("isLoggedIn");
-    localStorage.removeItem("user");
-    toast.success("已退出登录");
-    navigate("/auth");
-  };
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
@@ -114,31 +99,14 @@ const Navbar = ({ isLoggedIn = false }: NavbarProps) => {
           {/* Action Buttons */}
           <div className="flex items-center gap-4">
             {isLoggedIn ? (
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="accent" className="gap-2">
-                    <User className="w-4 h-4" />
-                    个人中心
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-48">
-                  <DropdownMenuLabel>我的账户</DropdownMenuLabel>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem onClick={() => navigate("/profile")}>
-                    <User className="w-4 h-4 mr-2" />
-                    个人资料
-                  </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => navigate("/orders")}>
-                    <Plane className="w-4 h-4 mr-2" />
-                    我的订单
-                  </DropdownMenuItem>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem onClick={handleLogout} className="text-destructive">
-                    <LogOut className="w-4 h-4 mr-2" />
-                    退出登录
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
+              <Button 
+                variant="accent" 
+                className="gap-2"
+                onClick={() => navigate("/profile")}
+              >
+                <User className="w-4 h-4" />
+                个人中心
+              </Button>
             ) : (
               <>
                 <Button 
