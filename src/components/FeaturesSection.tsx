@@ -5,22 +5,22 @@ const features = [
   {
     icon: Hotel,
     title: "百万酒店可选",
-    description: "Traveler为您提供全球各地的酒店预订服务，从经济实惠到豪华选择，并提供价格对比。",
+    description: "为您提供全球各地的酒店预订服务，从经济实惠到豪华选择，并提供价格对比。",
   },
   {
     icon: Search,
-    title: "轻松搜索酒店",
-    description: "通过Qessa Travel在线预订酒店，比较价格、设施，选择最适合您的酒店。",
+    title: "轻松搜索机票",
+    description: "在线搜索机票，比较价格、机型、vip尊享服务，选择最适合您的航班。",
   },
   {
     icon: Zap,
     title: "独家酒店优惠",
-    description: "在Qessa Travel探索全球各地的实惠酒店，比较价格，预订符合您预算的最优惠价格。",
+    description: "探索全球各地的实惠酒店，比较价格，预订符合您预算的最优惠价格。",
   },
   {
     icon: MapPin,
-    title: "全球特别行程",
-    description: "我们为您提供全球范围内的航班和酒店独家优惠，为您带来最优质的旅行体验。",
+    title: "景点快速预约",
+    description: "我们为您提供知名景点的票务预约服务，为您带来最实惠的价格和优质的旅行体验。",
   },
   {
     icon: Users,

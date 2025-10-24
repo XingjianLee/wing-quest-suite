@@ -11,10 +11,10 @@ const Footer = () => {
               <div className="w-10 h-10 bg-accent rounded-lg flex items-center justify-center">
                 <Plane className="w-6 h-6 text-primary" />
               </div>
-              <span className="text-2xl font-bold">Luxora</span>
+              <span className="text-2xl font-bold">SkyTrip</span>
             </div>
             <p className="text-white/70">
-              预订航班、预订酒店，探索独家旅游优惠。
+              预订航班、预订酒店，景点预约。
             </p>
           </div>
 
@@ -78,22 +78,21 @@ const Footer = () => {
             <ul className="space-y-3 text-white/70">
               <li className="flex items-center gap-2">
                 <span>📧</span>
-                <a href="mailto:support@luxora.com" className="hover:text-accent transition-colors">
-                  support@luxora.com
+                <a href="mailto:support@skytrip.com" className="hover:text-accent transition-colors">
+                  support@skytrip.com
                 </a>
               </li>
               <li className="flex items-center gap-2">
                 <span>📞</span>
-                <a href="tel:+947-987256874" className="hover:text-accent transition-colors">
-                  +947-987256874
+                <a href="tel:+86-00000000" className="hover:text-accent transition-colors">
+                  +86-00000000
                 </a>
               </li>
               <li className="flex items-start gap-2">
                 <span>📍</span>
                 <span>
-                  Anas Bin Malik Street Complex,<br />
-                  49 Featherstone Street,<br />
-                  LONDON, EC1Y 8SY, UK
+                  天津市北辰区西平道5340号<br />
+
                 </span>
               </li>
             </ul>
@@ -134,7 +133,7 @@ const Footer = () => {
 
         {/* Copyright */}
         <div className="pt-8 border-t border-white/10 text-center text-white/60">
-          <p>© 2025 Luxora 保留所有权利。</p>
+          <p>© 2025 SkyTrip 保留所有权利。</p>
         </div>
       </div>
     </footer>

@@ -11,7 +11,7 @@ const Navbar = () => {
             <div className="w-10 h-10 bg-accent rounded-lg flex items-center justify-center">
               <Plane className="w-6 h-6 text-primary" />
             </div>
-            <span className="text-2xl font-bold text-primary">Luxora</span>
+            <span className="text-2xl font-bold text-primary">SkyTrip</span>
           </div>
 
           {/* Navigation Links */}
