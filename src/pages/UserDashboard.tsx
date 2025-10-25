@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import QuickServicesBar from "@/components/QuickServicesBar";
+import RecentTrips from "@/components/RecentTrips";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -132,6 +133,8 @@ const UserDashboard = () => {
       <Navbar isLoggedIn={true} />
       
       <QuickServicesBar />
+      
+      <RecentTrips />
       
       <main className="container mx-auto px-6 pt-6 pb-12">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
