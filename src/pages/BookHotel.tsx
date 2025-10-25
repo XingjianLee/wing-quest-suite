@@ -73,6 +73,7 @@ const BookHotel = () => {
   const [selectedTypes, setSelectedTypes] = useState<string[]>(["villa"]);
   const [locationArea, setLocationArea] = useState("");
   const [ratingSort, setRatingSort] = useState<"none" | "asc" | "desc">("none");
+  const [starRating, setStarRating] = useState<number[]>([]);
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
@@ -253,6 +254,52 @@ const BookHotel = () => {
                     >
                       评分从低到高
                     </Button>
+                  </div>
+                </div>
+
+                {/* Star Rating Filter */}
+                <div className="mb-6">
+                  <Label className="mb-4 block font-semibold">酒店星级</Label>
+                  <div className="space-y-3">
+                    {[5, 4, 3, 2, 1].map((star) => (
+                      <div
+                        key={star}
+                        className="flex items-start space-x-3 cursor-pointer"
+                        onClick={() => {
+                          setStarRating((prev) =>
+                            prev.includes(star)
+                              ? prev.filter((s) => s !== star)
+                              : [...prev, star]
+                          );
+                        }}
+                      >
+                        <Checkbox
+                          id={`star-${star}`}
+                          checked={starRating.includes(star)}
+                          onCheckedChange={() => {}}
+                        />
+                        <div className="space-y-1">
+                          <label
+                            htmlFor={`star-${star}`}
+                            className="text-sm font-medium leading-none cursor-pointer flex items-center gap-1"
+                          >
+                            {Array.from({ length: star }).map((_, i) => (
+                              <span key={i} className="text-yellow-500">★</span>
+                            ))}
+                            {Array.from({ length: 5 - star }).map((_, i) => (
+                              <span key={i} className="text-gray-300">★</span>
+                            ))}
+                          </label>
+                          <p className="text-sm text-muted-foreground">
+                            {star === 5 && "豪华五星级酒店"}
+                            {star === 4 && "高档四星级酒店"}
+                            {star === 3 && "舒适三星级酒店"}
+                            {star === 2 && "经济二星级酒店"}
+                            {star === 1 && "简约一星级酒店"}
+                          </p>
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 </div>
 
