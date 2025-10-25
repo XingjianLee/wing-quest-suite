@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 import FlightSearchBar from "@/components/FlightSearchBar";
 import FlightFilters from "@/components/FlightFilters";
 import FlightCard from "@/components/FlightCard";
@@ -167,10 +168,10 @@ export default function BookFlight() {
     });
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen flex flex-col bg-background">
       <Navbar isLoggedIn={true} />
       
-      {/* Hero Section */}
+      {/* Hero Section with Search */}
       <section className="relative bg-gradient-to-br from-primary/10 via-accent/5 to-background pt-24 pb-12">
         <div 
           className="absolute inset-0 opacity-20"
@@ -191,29 +192,30 @@ export default function BookFlight() {
               比价更快，出行更省心，为您找到最优惠的航班
             </p>
           </div>
+
+          {/* Search Bar */}
+          <FlightSearchBar />
         </div>
       </section>
-      
-      <div className="flex">
-        {/* Left Sidebar - Fixed Filters */}
-        <div className="sticky top-0 w-80 h-screen flex-shrink-0 overflow-y-auto border-r border-border/50 bg-background/95 backdrop-blur-sm p-4">
-          <FlightFilters filters={filters} onFilterChange={handleFilterChange} />
-        </div>
 
-        {/* Right Content Area */}
-        <div className="flex-1 min-h-screen bg-gradient-to-b from-accent/5 to-background">
-          {/* Search Bar - Sticky at top */}
-          <div className="sticky top-0 z-30 bg-background/95 backdrop-blur-sm border-b border-border/50 p-4 shadow-sm">
-            <FlightSearchBar />
-          </div>
+      {/* Results Section */}
+      <section className="py-12 flex-1">
+        <div className="container mx-auto px-4">
+          <div className="flex flex-col lg:flex-row gap-8">
+            {/* Filters Sidebar */}
+            <div className="lg:w-80 shrink-0">
+              <div className="sticky top-24">
+                <FlightFilters filters={filters} onFilterChange={handleFilterChange} />
+              </div>
+            </div>
 
-          {/* Scrollable Flight List */}
-          <div>
-            <div className="container mx-auto px-4 py-6">
-              <div className="mb-4 flex items-center justify-between">
-                <h2 className="text-xl font-semibold text-foreground">
-                  找到 {filteredFlights.length} 个航班
+            {/* Results */}
+            <div className="flex-1">
+              <div className="mb-6">
+                <h2 className="text-2xl font-bold mb-1">
+                  找到 <span className="text-primary">{filteredFlights.length}</span> 个航班
                 </h2>
+                <p className="text-muted-foreground">为您精选最优惠的航班方案</p>
               </div>
 
               <div className="space-y-4">
@@ -223,7 +225,7 @@ export default function BookFlight() {
               </div>
 
               {filteredFlights.length === 0 && (
-                <div className="bg-card rounded-lg p-12 text-center shadow-card">
+                <div className="bg-card rounded-lg p-12 text-center shadow-sm">
                   <p className="text-muted-foreground text-lg">
                     没有找到符合条件的航班，请调整搜索条件
                   </p>
@@ -232,7 +234,9 @@ export default function BookFlight() {
             </div>
           </div>
         </div>
-      </div>
+      </section>
+
+      <Footer />
     </div>
   );
 }
