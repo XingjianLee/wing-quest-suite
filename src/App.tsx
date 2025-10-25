@@ -9,6 +9,7 @@ import Auth from "./pages/Auth";
 import Dashboard from "./pages/Dashboard";
 import BookFlight from "./pages/BookFlight";
 import BookHotel from "./pages/BookHotel";
+import HotelDetail from "./pages/HotelDetail";
 import BookTicket from "./pages/BookTicket";
 import MyTrips from "./pages/MyTrips";
 import MyOrders from "./pages/MyOrders";
@@ -37,6 +38,7 @@ const App = () => (
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/book-flight" element={<BookFlight />} />
           <Route path="/book-hotel" element={<BookHotel />} />
+          <Route path="/hotel/:id" element={<HotelDetail />} />
           <Route path="/book-ticket" element={<BookTicket />} />
           <Route path="/my-trips" element={<MyTrips />} />
           <Route path="/my-orders" element={<MyOrders />} />

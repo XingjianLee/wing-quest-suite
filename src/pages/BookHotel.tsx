@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Search, MapPin, Calendar, Users, SlidersHorizontal, Star, Heart, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -65,6 +66,7 @@ const mockHotels = [
 ];
 
 const BookHotel = () => {
+  const navigate = useNavigate();
   const [location, setLocation] = useState("北京");
   const [checkIn, setCheckIn] = useState("2024年1月5日");
   const [checkOut, setCheckOut] = useState("2024年1月25日");
@@ -421,7 +423,11 @@ const BookHotel = () => {
 
               <div className="grid md:grid-cols-2 gap-6">
                 {mockHotels.map((hotel) => (
-                  <Card key={hotel.id} className="overflow-hidden group hover:shadow-xl transition-all cursor-pointer">
+                  <Card 
+                    key={hotel.id} 
+                    className="overflow-hidden group hover:shadow-xl transition-all cursor-pointer"
+                    onClick={() => navigate(`/hotel/${hotel.id}`)}
+                  >
                     <div className="relative">
                       <div className="aspect-[4/3] overflow-hidden">
                         <img
