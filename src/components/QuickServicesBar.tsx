@@ -38,7 +38,7 @@ const services = [
     name: "退改签",
     icon: RefreshCw,
     description: "退票改签",
-    route: "/refund-change",
+    route: "/refund",
     color: "from-yellow-500 to-orange-500",
   },
   {
@@ -46,7 +46,7 @@ const services = [
     name: "客服中心",
     icon: Headphones,
     description: "在线客服",
-    route: "/customer-service",
+    route: "/support",
     color: "from-teal-500 to-cyan-500",
   },
 ];
