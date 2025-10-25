@@ -137,6 +137,11 @@ const UserDashboard = () => {
       <RecentTrips />
       
       <main className="container mx-auto px-6 pt-6 pb-12">
+        <div className="mb-6">
+          <h2 className="text-2xl font-bold mb-1">智能行程推荐</h2>
+          <p className="text-sm text-muted-foreground">为您精心定制的旅行方案</p>
+        </div>
+        
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           {/* 左侧边栏 - 主题导航与核心推荐 */}
           <div className="lg:col-span-3 space-y-6">
