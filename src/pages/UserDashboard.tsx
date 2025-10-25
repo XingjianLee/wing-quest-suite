@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import QuickServicesBar from "@/components/QuickServicesBar";
 import RecentTrips from "@/components/RecentTrips";
+import Footer from "@/components/Footer";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -508,6 +509,7 @@ const UserDashboard = () => {
           </div>
         </div>
       </main>
+      <Footer />
     </div>
   );
 };
