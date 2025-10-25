@@ -18,6 +18,7 @@ import PriceCalendar from "./pages/PriceCalendar";
 import TravelAssistant from "./pages/TravelAssistant";
 import RefundChange from "./pages/RefundChange";
 import CustomerService from "./pages/CustomerService";
+import OrderFlight from "./pages/OrderFlight";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -44,6 +45,7 @@ const App = () => (
           <Route path="/travel-assistant" element={<TravelAssistant />} />
           <Route path="/refund-change" element={<RefundChange />} />
           <Route path="/customer-service" element={<CustomerService />} />
+          <Route path="/order-flight" element={<OrderFlight />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

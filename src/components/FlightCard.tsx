@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Plane, Clock, Wifi, Utensils, Tv, MapPin } from "lucide-react";
@@ -7,10 +8,16 @@ interface FlightCardProps {
 }
 
 export default function FlightCard({ flight }: FlightCardProps) {
+  const navigate = useNavigate();
+  
   const facilityIcons = {
     wifi: <Wifi className="h-4 w-4" />,
     meal: <Utensils className="h-4 w-4" />,
     tv: <Tv className="h-4 w-4" />
+  };
+
+  const handleSelect = () => {
+    navigate("/order-flight", { state: { flight } });
   };
 
   // Direct flight
@@ -80,7 +87,10 @@ export default function FlightCard({ flight }: FlightCardProps) {
                 <div className="text-3xl font-bold text-accent">¥{flight.price}</div>
                 <div className="text-xs text-muted-foreground">含税费</div>
               </div>
-              <Button className="bg-gradient-accent hover:shadow-accent transition-all group-hover:scale-105">
+              <Button 
+                className="bg-gradient-accent hover:shadow-accent transition-all group-hover:scale-105"
+                onClick={handleSelect}
+              >
                 选择
               </Button>
             </div>
@@ -183,7 +193,10 @@ export default function FlightCard({ flight }: FlightCardProps) {
               <div className="text-3xl font-bold text-accent">¥{flight.price}</div>
               <div className="text-xs text-muted-foreground">含税费</div>
             </div>
-            <Button className="bg-gradient-accent hover:shadow-accent transition-all group-hover:scale-105">
+            <Button 
+              className="bg-gradient-accent hover:shadow-accent transition-all group-hover:scale-105"
+              onClick={handleSelect}
+            >
               选择
             </Button>
           </div>
