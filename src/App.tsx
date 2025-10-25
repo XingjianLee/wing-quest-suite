@@ -11,6 +11,7 @@ import BookFlight from "./pages/BookFlight";
 import BookHotel from "./pages/BookHotel";
 import HotelDetail from "./pages/HotelDetail";
 import BookTicket from "./pages/BookTicket";
+import TicketDetail from "./pages/TicketDetail";
 import MyTrips from "./pages/MyTrips";
 import MyOrders from "./pages/MyOrders";
 import Profile from "./pages/Profile";
@@ -40,6 +41,7 @@ const App = () => (
           <Route path="/book-hotel" element={<BookHotel />} />
           <Route path="/hotel/:id" element={<HotelDetail />} />
           <Route path="/book-ticket" element={<BookTicket />} />
+          <Route path="/ticket/:id" element={<TicketDetail />} />
           <Route path="/my-trips" element={<MyTrips />} />
           <Route path="/my-orders" element={<MyOrders />} />
           <Route path="/profile" element={<Profile />} />

@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -21,8 +22,13 @@ interface TicketCardProps {
 }
 
 const TicketCard = ({ ticket }: TicketCardProps) => {
+  const navigate = useNavigate();
+  
   return (
-    <Card className="overflow-hidden group hover:shadow-xl transition-all cursor-pointer border-0 shadow-lg">
+    <Card 
+      className="overflow-hidden group hover:shadow-xl transition-all cursor-pointer border-0 shadow-lg"
+      onClick={() => navigate(`/ticket/${ticket.id}`)}
+    >
       <div className="flex flex-col md:flex-row">
         {/* 图片区域 */}
         <div className="relative md:w-80 flex-shrink-0">
