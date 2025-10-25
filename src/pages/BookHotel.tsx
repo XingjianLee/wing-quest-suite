@@ -71,6 +71,7 @@ const BookHotel = () => {
   const [guests, setGuests] = useState("4位成人");
   const [priceRange, setPriceRange] = useState([120, 700]);
   const [selectedTypes, setSelectedTypes] = useState<string[]>(["villa"]);
+  const [locationArea, setLocationArea] = useState("");
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
@@ -182,6 +183,23 @@ const BookHotel = () => {
                 <div className="flex items-center justify-between mb-6">
                   <h3 className="text-lg font-semibold">筛选条件</h3>
                   <Button variant="ghost" size="sm">清除全部 (3)</Button>
+                </div>
+
+                {/* Location Area Search */}
+                <div className="mb-6">
+                  <Label className="mb-3 block font-semibold">位置区域</Label>
+                  <div className="relative">
+                    <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                    <Input
+                      value={locationArea}
+                      onChange={(e) => setLocationArea(e.target.value)}
+                      placeholder="搜索城市、区域、地标..."
+                      className="pl-10"
+                    />
+                  </div>
+                  <p className="text-xs text-muted-foreground mt-2">
+                    例如：朝阳区、国贸、三里屯
+                  </p>
                 </div>
 
                 {/* Price Range */}
