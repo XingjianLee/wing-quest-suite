@@ -21,16 +21,6 @@ export default function FlightCard({ flight }: FlightCardProps) {
   };
 
   // Get airline logo based on airline name
-  const getAirlineLogo = (airline: string) => {
-    const logos: { [key: string]: string } = {
-      "中国国航": "https://images.unsplash.com/photo-1464037866556-6812c9d1c72e?w=200&q=80",
-      "东方航空": "https://images.unsplash.com/photo-1583829891280-65d454cbf43d?w=200&q=80",
-      "南方航空": "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=200&q=80",
-      "海南航空": "https://images.unsplash.com/photo-1542296332-2e4473faf563?w=200&q=80"
-    };
-    return logos[airline] || "https://images.unsplash.com/photo-1464037866556-6812c9d1c72e?w=200&q=80";
-  };
-
   // Direct flight
   if (flight.direct) {
     return (
@@ -40,12 +30,8 @@ export default function FlightCard({ flight }: FlightCardProps) {
         
         <div className="p-6">
           <div className="flex items-center gap-3 mb-4">
-            <div className="relative w-14 h-14 rounded-xl overflow-hidden shadow-md ring-2 ring-primary/10">
-              <img 
-                src={getAirlineLogo(flight.airline)} 
-                alt={flight.airline}
-                className="w-full h-full object-cover"
-              />
+            <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-md">
+              <Plane className="h-7 w-7 text-white" />
             </div>
             <div className="flex-1">
               <h3 className="font-semibold text-foreground text-lg">{flight.airline}</h3>
@@ -139,12 +125,8 @@ export default function FlightCard({ flight }: FlightCardProps) {
       
       <div className="p-6">
         <div className="flex items-center gap-3 mb-4">
-          <div className="relative w-14 h-14 rounded-xl overflow-hidden shadow-md ring-2 ring-orange-500/10">
-            <img 
-              src={getAirlineLogo(flight.segments[0].airline)} 
-              alt={flight.segments[0].airline}
-              className="w-full h-full object-cover"
-            />
+          <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-orange-500 to-yellow-500 flex items-center justify-center shadow-md">
+            <Plane className="h-7 w-7 text-white" />
           </div>
           <div className="flex-1">
             <h3 className="font-semibold text-foreground text-lg">中转航班</h3>
