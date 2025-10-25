@@ -22,6 +22,7 @@ const Profile = () => {
   const [nickname, setNickname] = useState("张伟");
   const [isEditingNickname, setIsEditingNickname] = useState(false);
   const [tempNickname, setTempNickname] = useState(nickname);
+  const [isEditingBasic, setIsEditingBasic] = useState(false);
   
   const handleLogout = () => {
     localStorage.removeItem("isLoggedIn");
@@ -151,28 +152,70 @@ const Profile = () => {
             <TabsContent value="basic" className="space-y-6">
               <Card>
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <User className="w-5 h-5" />
-                    个人信息
-                  </CardTitle>
-                  <CardDescription>管理您的基本个人信息</CardDescription>
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <CardTitle className="flex items-center gap-2">
+                        <User className="w-5 h-5" />
+                        个人信息
+                      </CardTitle>
+                      <CardDescription>管理您的基本个人信息</CardDescription>
+                    </div>
+                    {!isEditingBasic ? (
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => setIsEditingBasic(true)}
+                        className="gap-2"
+                      >
+                        <Pencil className="w-4 h-4" />
+                        编辑
+                      </Button>
+                    ) : (
+                      <div className="flex gap-2">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => {
+                            setIsEditingBasic(false);
+                            toast.success("已保存更改");
+                          }}
+                          className="gap-2"
+                        >
+                          <Check className="w-4 h-4" />
+                          保存
+                        </Button>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => {
+                            setIsEditingBasic(false);
+                            toast.info("已取消编辑");
+                          }}
+                          className="gap-2"
+                        >
+                          <X className="w-4 h-4" />
+                          取消
+                        </Button>
+                      </div>
+                    )}
+                  </div>
                 </CardHeader>
                 <CardContent className="space-y-6">
                   <div className="grid md:grid-cols-2 gap-6">
                     <div className="space-y-2">
                       <Label htmlFor="lastName">姓氏 *</Label>
-                      <Input id="lastName" defaultValue="张" placeholder="请输入姓氏" />
+                      <Input id="lastName" defaultValue="张" placeholder="请输入姓氏" disabled={!isEditingBasic} />
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="firstName">名字 *</Label>
-                      <Input id="firstName" defaultValue="伟" placeholder="请输入名字" />
+                      <Input id="firstName" defaultValue="伟" placeholder="请输入名字" disabled={!isEditingBasic} />
                     </div>
                   </div>
 
                   <div className="grid md:grid-cols-2 gap-6">
                     <div className="space-y-2">
                       <Label htmlFor="gender">性别</Label>
-                      <Select defaultValue="male">
+                      <Select defaultValue="male" disabled={!isEditingBasic}>
                         <SelectTrigger id="gender">
                           <SelectValue />
                         </SelectTrigger>
@@ -185,7 +228,7 @@ const Profile = () => {
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="birthday">出生日期</Label>
-                      <Input id="birthday" type="date" defaultValue="1990-01-15" />
+                      <Input id="birthday" type="date" defaultValue="1990-01-15" disabled={!isEditingBasic} />
                     </div>
                   </div>
 
@@ -195,14 +238,14 @@ const Profile = () => {
                         <Phone className="w-4 h-4" />
                         手机号码 *
                       </Label>
-                      <Input id="phone" defaultValue="13800138000" placeholder="请输入手机号" />
+                      <Input id="phone" defaultValue="13800138000" placeholder="请输入手机号" disabled={!isEditingBasic} />
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="email" className="flex items-center gap-2">
                         <Mail className="w-4 h-4" />
                         电子邮箱 *
                       </Label>
-                      <Input id="email" type="email" defaultValue="zhangwei@example.com" placeholder="请输入邮箱" />
+                      <Input id="email" type="email" defaultValue="zhangwei@example.com" placeholder="请输入邮箱" disabled={!isEditingBasic} />
                     </div>
                   </div>
 
@@ -216,13 +259,14 @@ const Profile = () => {
                       defaultValue="北京市朝阳区建国路88号"
                       placeholder="请输入详细地址"
                       rows={3}
+                      disabled={!isEditingBasic}
                     />
                   </div>
 
                   <div className="grid md:grid-cols-3 gap-6">
                     <div className="space-y-2">
                       <Label htmlFor="nationality">国籍</Label>
-                      <Select defaultValue="china">
+                      <Select defaultValue="china" disabled={!isEditingBasic}>
                         <SelectTrigger id="nationality">
                           <SelectValue />
                         </SelectTrigger>
@@ -236,7 +280,7 @@ const Profile = () => {
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="language">首选语言</Label>
-                      <Select defaultValue="zh">
+                      <Select defaultValue="zh" disabled={!isEditingBasic}>
                         <SelectTrigger id="language">
                           <SelectValue />
                         </SelectTrigger>
@@ -249,7 +293,7 @@ const Profile = () => {
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="occupation">职业</Label>
-                      <Input id="occupation" defaultValue="软件工程师" placeholder="请输入职业" />
+                      <Input id="occupation" defaultValue="软件工程师" placeholder="请输入职业" disabled={!isEditingBasic} />
                     </div>
                   </div>
                 </CardContent>
