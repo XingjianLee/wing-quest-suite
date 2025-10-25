@@ -72,7 +72,7 @@ const BookHotel = () => {
   const [priceRange, setPriceRange] = useState([120, 700]);
   const [selectedTypes, setSelectedTypes] = useState<string[]>(["villa"]);
   const [locationArea, setLocationArea] = useState("");
-  const [ratingFilter, setRatingFilter] = useState<number>(0);
+  const [ratingSort, setRatingSort] = useState<"none" | "asc" | "desc">("none");
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
@@ -228,35 +228,31 @@ const BookHotel = () => {
                   </div>
                 </div>
 
-                {/* Rating Filter */}
+                {/* Rating Sort */}
                 <div className="mb-6">
                   <Label className="mb-4 block font-semibold">评分排序</Label>
                   <div className="space-y-2">
-                    {[
-                      { value: 0, label: "不限", desc: "显示所有酒店" },
-                      { value: 4.5, label: "4.5分以上", desc: "优质推荐" },
-                      { value: 4.0, label: "4.0分以上", desc: "好评如潮" },
-                      { value: 3.5, label: "3.5分以上", desc: "评价良好" },
-                      { value: 3.0, label: "3.0分以上", desc: "基本满意" }
-                    ].map((option) => (
-                      <div
-                        key={option.value}
-                        className={`flex items-center justify-between p-3 rounded-lg border cursor-pointer transition-all ${
-                          ratingFilter === option.value
-                            ? "border-primary bg-primary/5"
-                            : "border-border hover:border-primary/50"
-                        }`}
-                        onClick={() => setRatingFilter(option.value)}
-                      >
-                        <div className="flex-1">
-                          <div className="font-medium text-sm">{option.label}</div>
-                          <div className="text-xs text-muted-foreground">{option.desc}</div>
-                        </div>
-                        {ratingFilter === option.value && (
-                          <div className="text-primary">✓</div>
-                        )}
-                      </div>
-                    ))}
+                    <Button
+                      variant={ratingSort === "none" ? "default" : "outline"}
+                      className="w-full justify-start"
+                      onClick={() => setRatingSort("none")}
+                    >
+                      不排序
+                    </Button>
+                    <Button
+                      variant={ratingSort === "desc" ? "default" : "outline"}
+                      className="w-full justify-start"
+                      onClick={() => setRatingSort("desc")}
+                    >
+                      评分从高到低
+                    </Button>
+                    <Button
+                      variant={ratingSort === "asc" ? "default" : "outline"}
+                      className="w-full justify-start"
+                      onClick={() => setRatingSort("asc")}
+                    >
+                      评分从低到高
+                    </Button>
                   </div>
                 </div>
 
