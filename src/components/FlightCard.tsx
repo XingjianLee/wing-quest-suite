@@ -20,48 +20,79 @@ export default function FlightCard({ flight }: FlightCardProps) {
     navigate("/order-flight", { state: { flight } });
   };
 
+  // Get airline logo based on airline name
+  const getAirlineLogo = (airline: string) => {
+    const logos: { [key: string]: string } = {
+      "中国国航": "https://images.unsplash.com/photo-1464037866556-6812c9d1c72e?w=200&q=80",
+      "东方航空": "https://images.unsplash.com/photo-1583829891280-65d454cbf43d?w=200&q=80",
+      "南方航空": "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=200&q=80",
+      "海南航空": "https://images.unsplash.com/photo-1542296332-2e4473faf563?w=200&q=80"
+    };
+    return logos[airline] || "https://images.unsplash.com/photo-1464037866556-6812c9d1c72e?w=200&q=80";
+  };
+
   // Direct flight
   if (flight.direct) {
     return (
-      <div className="bg-card rounded-xl shadow-card hover:shadow-card-hover border border-border/50 transition-all duration-300 hover:-translate-y-1 group">
+      <div className="bg-card rounded-xl shadow-card hover:shadow-card-hover border border-border/50 transition-all duration-300 hover:-translate-y-1 group overflow-hidden">
+        {/* Decorative top bar */}
+        <div className="h-1 bg-gradient-to-r from-primary via-accent to-primary" />
+        
         <div className="p-6">
           <div className="flex items-center gap-3 mb-4">
-            <div className="w-12 h-12 rounded-full bg-gradient-accent flex items-center justify-center">
-              <Plane className="h-6 w-6 text-white" />
+            <div className="relative w-14 h-14 rounded-xl overflow-hidden shadow-md ring-2 ring-primary/10">
+              <img 
+                src={getAirlineLogo(flight.airline)} 
+                alt={flight.airline}
+                className="w-full h-full object-cover"
+              />
             </div>
-            <div>
-              <h3 className="font-semibold text-foreground">{flight.airline}</h3>
+            <div className="flex-1">
+              <h3 className="font-semibold text-foreground text-lg">{flight.airline}</h3>
               <p className="text-sm text-muted-foreground">{flight.flightNumber}</p>
             </div>
+            <Badge variant="outline" className="bg-primary/5">
+              直达
+            </Badge>
           </div>
 
-          <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center justify-between mb-4 relative">
             {/* Departure */}
-            <div className="flex-1">
+            <div className="flex-1 bg-gradient-to-r from-primary/5 to-transparent p-4 rounded-l-lg">
               <div className="text-3xl font-bold text-foreground">{flight.departure.time}</div>
-              <div className="text-sm text-muted-foreground mt-1">{flight.departure.airport}</div>
-              <div className="text-xs text-muted-foreground">{flight.departure.code}</div>
+              <div className="text-sm font-medium text-foreground mt-1">{flight.departure.airport}</div>
+              <div className="text-xs text-muted-foreground flex items-center gap-1 mt-1">
+                <MapPin className="w-3 h-3" />
+                {flight.departure.code}
+              </div>
             </div>
 
-            {/* Duration */}
-            <div className="flex-1 px-6">
+            {/* Duration with animation */}
+            <div className="flex-1 px-6 relative">
               <div className="flex flex-col items-center">
-                <div className="text-sm text-muted-foreground mb-2 flex items-center gap-1">
+                <div className="text-sm text-muted-foreground mb-2 flex items-center gap-1 bg-accent/10 px-3 py-1 rounded-full">
                   <Clock className="h-3 w-3" />
                   {flight.duration}
                 </div>
-                <div className="w-full h-0.5 bg-gradient-accent relative">
-                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-2 bg-accent rounded-full" />
+                <div className="w-full relative">
+                  <div className="w-full h-0.5 bg-gradient-to-r from-primary via-accent to-primary" />
+                  <Plane className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-5 h-5 text-primary animate-pulse" />
                 </div>
-                <div className="text-xs text-accent mt-2 font-medium">直达</div>
+                <div className="text-xs text-primary mt-2 font-medium flex items-center gap-1">
+                  <span className="w-2 h-2 bg-primary rounded-full animate-pulse" />
+                  直达航班
+                </div>
               </div>
             </div>
 
             {/* Arrival */}
-            <div className="flex-1 text-right">
+            <div className="flex-1 text-right bg-gradient-to-l from-accent/5 to-transparent p-4 rounded-r-lg">
               <div className="text-3xl font-bold text-foreground">{flight.arrival.time}</div>
-              <div className="text-sm text-muted-foreground mt-1">{flight.arrival.airport}</div>
-              <div className="text-xs text-muted-foreground">{flight.arrival.code}</div>
+              <div className="text-sm font-medium text-foreground mt-1">{flight.arrival.airport}</div>
+              <div className="text-xs text-muted-foreground flex items-center gap-1 justify-end mt-1">
+                <MapPin className="w-3 h-3" />
+                {flight.arrival.code}
+              </div>
             </div>
           </div>
 
@@ -102,59 +133,78 @@ export default function FlightCard({ flight }: FlightCardProps) {
 
   // Connecting flight
   return (
-    <div className="bg-card rounded-xl shadow-card hover:shadow-card-hover border border-border/50 transition-all duration-300 hover:-translate-y-1 group">
+    <div className="bg-card rounded-xl shadow-card hover:shadow-card-hover border border-border/50 transition-all duration-300 hover:-translate-y-1 group overflow-hidden">
+      {/* Decorative top bar */}
+      <div className="h-1 bg-gradient-to-r from-orange-500 via-yellow-500 to-orange-500" />
+      
       <div className="p-6">
         <div className="flex items-center gap-3 mb-4">
-          <div className="w-12 h-12 rounded-full bg-gradient-primary flex items-center justify-center">
-            <Plane className="h-6 w-6 text-white" />
+          <div className="relative w-14 h-14 rounded-xl overflow-hidden shadow-md ring-2 ring-orange-500/10">
+            <img 
+              src={getAirlineLogo(flight.segments[0].airline)} 
+              alt={flight.segments[0].airline}
+              className="w-full h-full object-cover"
+            />
           </div>
-          <div>
-            <h3 className="font-semibold text-foreground">中转航班</h3>
+          <div className="flex-1">
+            <h3 className="font-semibold text-foreground text-lg">中转航班</h3>
             <p className="text-sm text-muted-foreground">
-              {flight.segments.length} 个航段
+              {flight.segments.length} 个航段 · {flight.segments[0].airline}
             </p>
           </div>
+          <Badge variant="outline" className="bg-orange-500/5 text-orange-600 border-orange-200">
+            中转
+          </Badge>
         </div>
 
         {/* Flight segments */}
         <div className="space-y-4 mb-4">
           {flight.segments.map((segment: any, index: number) => (
             <div key={index}>
-              <div className="flex items-center justify-between">
+              <div className="flex items-center justify-between bg-gradient-to-r from-accent/5 to-primary/5 p-3 rounded-lg">
                 {/* Departure */}
                 <div className="flex-1">
                   <div className="text-2xl font-bold text-foreground">{segment.departure.time}</div>
-                  <div className="text-sm text-muted-foreground mt-1">{segment.departure.airport}</div>
-                  <div className="text-xs text-muted-foreground">{segment.departure.code}</div>
+                  <div className="text-sm font-medium text-foreground mt-1">{segment.departure.airport}</div>
+                  <div className="text-xs text-muted-foreground flex items-center gap-1 mt-1">
+                    <MapPin className="w-3 h-3" />
+                    {segment.departure.code}
+                  </div>
                 </div>
 
                 {/* Duration */}
                 <div className="flex-1 px-4">
                   <div className="flex flex-col items-center">
-                    <div className="text-xs text-muted-foreground mb-2 flex items-center gap-1">
+                    <div className="text-xs text-muted-foreground mb-2 flex items-center gap-1 bg-white/50 px-2 py-1 rounded-full">
                       <Clock className="h-3 w-3" />
                       {segment.duration}
                     </div>
-                    <div className="w-full h-0.5 bg-gradient-to-r from-accent/50 to-accent relative">
+                    <div className="w-full relative">
+                      <div className="w-full h-0.5 bg-gradient-to-r from-accent/50 to-accent" />
                       <Plane className="absolute -top-2 right-0 h-4 w-4 text-accent" />
                     </div>
-                    <div className="text-xs text-muted-foreground mt-2">{segment.flightNumber}</div>
+                    <div className="text-xs text-muted-foreground mt-2 font-mono">{segment.flightNumber}</div>
                   </div>
                 </div>
 
                 {/* Arrival */}
                 <div className="flex-1 text-right">
                   <div className="text-2xl font-bold text-foreground">{segment.arrival.time}</div>
-                  <div className="text-sm text-muted-foreground mt-1">{segment.arrival.airport}</div>
-                  <div className="text-xs text-muted-foreground">{segment.arrival.code}</div>
+                  <div className="text-sm font-medium text-foreground mt-1">{segment.arrival.airport}</div>
+                  <div className="text-xs text-muted-foreground flex items-center gap-1 justify-end mt-1">
+                    <MapPin className="w-3 h-3" />
+                    {segment.arrival.code}
+                  </div>
                 </div>
               </div>
 
               {/* Transfer info */}
               {index < flight.segments.length - 1 && (
-                <div className="flex items-center justify-center gap-2 py-3 my-2 bg-secondary/50 rounded-lg">
-                  <MapPin className="h-4 w-4 text-muted-foreground" />
-                  <span className="text-sm text-muted-foreground">
+                <div className="flex items-center justify-center gap-2 py-3 my-3 bg-gradient-to-r from-orange-50 via-yellow-50 to-orange-50 dark:from-orange-950/20 dark:via-yellow-950/20 dark:to-orange-950/20 rounded-lg border border-orange-200/50 dark:border-orange-800/50">
+                  <div className="w-8 h-8 rounded-full bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center">
+                    <MapPin className="h-4 w-4 text-orange-600 dark:text-orange-400" />
+                  </div>
+                  <span className="text-sm font-medium text-orange-700 dark:text-orange-300">
                     在 {segment.arrival.airport} 中转 · 停留 {flight.transferTime}
                   </span>
                 </div>

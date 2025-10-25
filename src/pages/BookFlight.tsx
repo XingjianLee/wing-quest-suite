@@ -167,19 +167,43 @@ export default function BookFlight() {
     });
 
   return (
-    <div className="bg-secondary/30 min-h-screen">
+    <div className="min-h-screen bg-background">
       <Navbar isLoggedIn={true} />
       
-      <div className="flex pt-[72px]">
+      {/* Hero Section */}
+      <section className="relative bg-gradient-to-br from-primary/10 via-accent/5 to-background pt-24 pb-12">
+        <div 
+          className="absolute inset-0 opacity-20"
+          style={{
+            backgroundImage: "url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=1600&q=80')",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/60 to-background" />
+        
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="max-w-4xl mx-auto text-center mb-8">
+            <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
+              智能机票预订
+            </h1>
+            <p className="text-muted-foreground text-lg">
+              比价更快，出行更省心，为您找到最优惠的航班
+            </p>
+          </div>
+        </div>
+      </section>
+      
+      <div className="flex">
         {/* Left Sidebar - Fixed Filters */}
-        <div className="sticky top-[72px] w-80 h-[calc(100vh-72px)] flex-shrink-0 overflow-y-auto border-r border-border/50 bg-background p-4">
+        <div className="sticky top-0 w-80 h-screen flex-shrink-0 overflow-y-auto border-r border-border/50 bg-background/95 backdrop-blur-sm p-4">
           <FlightFilters filters={filters} onFilterChange={handleFilterChange} />
         </div>
 
         {/* Right Content Area */}
-        <div className="flex-1 min-h-[calc(100vh-72px)]">
+        <div className="flex-1 min-h-screen bg-gradient-to-b from-accent/5 to-background">
           {/* Search Bar - Sticky at top */}
-          <div className="sticky top-[72px] z-30 bg-background border-b border-border/50 p-4">
+          <div className="sticky top-0 z-30 bg-background/95 backdrop-blur-sm border-b border-border/50 p-4 shadow-sm">
             <FlightSearchBar />
           </div>
 
