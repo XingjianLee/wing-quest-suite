@@ -13,30 +13,19 @@ export default function FlightCard({ flight }: FlightCardProps) {
     tv: <Tv className="h-4 w-4" />
   };
 
-  const cabinClassText = {
-    economy: "经济舱",
-    business: "商务舱",
-    first: "头等舱"
-  };
-
   // Direct flight
   if (flight.direct) {
     return (
       <div className="bg-card rounded-xl shadow-card hover:shadow-card-hover border border-border/50 transition-all duration-300 hover:-translate-y-1 group">
         <div className="p-6">
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-full bg-gradient-accent flex items-center justify-center">
-                <Plane className="h-6 w-6 text-white" />
-              </div>
-              <div>
-                <h3 className="font-semibold text-foreground">{flight.airline}</h3>
-                <p className="text-sm text-muted-foreground">{flight.flightNumber}</p>
-              </div>
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-12 h-12 rounded-full bg-gradient-accent flex items-center justify-center">
+              <Plane className="h-6 w-6 text-white" />
             </div>
-            <Badge variant="secondary" className="bg-accent/10 text-accent border-accent/20">
-              {cabinClassText[flight.cabinClass as keyof typeof cabinClassText]}
-            </Badge>
+            <div>
+              <h3 className="font-semibold text-foreground">{flight.airline}</h3>
+              <p className="text-sm text-muted-foreground">{flight.flightNumber}</p>
+            </div>
           </div>
 
           <div className="flex items-center justify-between mb-4">
@@ -105,21 +94,16 @@ export default function FlightCard({ flight }: FlightCardProps) {
   return (
     <div className="bg-card rounded-xl shadow-card hover:shadow-card-hover border border-border/50 transition-all duration-300 hover:-translate-y-1 group">
       <div className="p-6">
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-full bg-gradient-primary flex items-center justify-center">
-              <Plane className="h-6 w-6 text-white" />
-            </div>
-            <div>
-              <h3 className="font-semibold text-foreground">中转航班</h3>
-              <p className="text-sm text-muted-foreground">
-                {flight.segments.length} 个航段
-              </p>
-            </div>
+        <div className="flex items-center gap-3 mb-4">
+          <div className="w-12 h-12 rounded-full bg-gradient-primary flex items-center justify-center">
+            <Plane className="h-6 w-6 text-white" />
           </div>
-          <Badge variant="secondary" className="bg-accent/10 text-accent border-accent/20">
-            {cabinClassText[flight.cabinClass as keyof typeof cabinClassText]}
-          </Badge>
+          <div>
+            <h3 className="font-semibold text-foreground">中转航班</h3>
+            <p className="text-sm text-muted-foreground">
+              {flight.segments.length} 个航段
+            </p>
+          </div>
         </div>
 
         {/* Flight segments */}
