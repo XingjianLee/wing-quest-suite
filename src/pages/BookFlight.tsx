@@ -141,102 +141,102 @@ export default function BookFlight() {
 
   // Filter and sort flights based on current filters
   const filteredFlights = flights
-    .filter(flight => {
-      if (filters.direct && !flight.direct) return false;
-      if (filters.cabinClass !== "all" && flight.cabinClass !== filters.cabinClass) return false;
-      if (filters.facilities.length > 0) {
-        const hasAllFacilities = filters.facilities.every(f => flight.facilities.includes(f));
-        if (!hasAllFacilities) return false;
-      }
-      if (flight.price < filters.priceRange[0] || flight.price > filters.priceRange[1]) return false;
-      return true;
-    })
-    .sort((a, b) => {
-      if (filters.sortBy === "price") {
-        return a.price - b.price;
-      } else if (filters.sortBy === "duration") {
-        const getDuration = (flight: any) => {
-          if (flight.direct) {
-            return parseInt(flight.duration);
-          } else {
-            return parseInt(flight.totalDuration);
-          }
-        };
-        return getDuration(a) - getDuration(b);
-      }
-      return 0;
-    });
+      .filter(flight => {
+        if (filters.direct && !flight.direct) return false;
+        if (filters.cabinClass !== "all" && flight.cabinClass !== filters.cabinClass) return false;
+        if (filters.facilities.length > 0) {
+          const hasAllFacilities = filters.facilities.every(f => flight.facilities.includes(f));
+          if (!hasAllFacilities) return false;
+        }
+        if (flight.price < filters.priceRange[0] || flight.price > filters.priceRange[1]) return false;
+        return true;
+      })
+      .sort((a, b) => {
+        if (filters.sortBy === "price") {
+          return a.price - b.price;
+        } else if (filters.sortBy === "duration") {
+          const getDuration = (flight: any) => {
+            if (flight.direct) {
+              return parseInt(flight.duration);
+            } else {
+              return parseInt(flight.totalDuration);
+            }
+          };
+          return getDuration(a) - getDuration(b);
+        }
+        return 0;
+      });
 
   return (
-    <div className="min-h-screen flex flex-col bg-background">
-      <Navbar isLoggedIn={true} />
-      
-      {/* Hero Section with Search */}
-      <section className="relative bg-gradient-to-br from-primary/10 via-accent/5 to-background pt-24 pb-12">
-        <div 
-          className="absolute inset-0 opacity-20"
-          style={{
-            backgroundImage: "url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=1600&q=80')",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/60 to-background" />
-        
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-4xl mx-auto text-center mb-8">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
-              智能机票预订
-            </h1>
-            <p className="text-muted-foreground text-lg">
-              比价更快，出行更省心，为您找到最优惠的航班
-            </p>
-          </div>
+      <div className="min-h-screen flex flex-col bg-background">
+        <Navbar isLoggedIn={true} />
 
-          {/* Search Bar */}
-          <FlightSearchBar />
-        </div>
-      </section>
+        {/* Hero Section with Search */}
+        <section className="relative bg-gradient-to-br from-primary/10 via-accent/5 to-background pt-24 pb-12">
+          <div
+              className="absolute inset-0 opacity-20"
+              style={{
+                backgroundImage: "url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=1600&q=80')",
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+              }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/60 to-background" />
 
-      {/* Results Section */}
-      <section className="py-12 flex-1">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-col lg:flex-row gap-8">
-            {/* Filters Sidebar */}
-            <div className="lg:w-80 shrink-0">
-              <div className="sticky top-24">
-                <FlightFilters filters={filters} onFilterChange={handleFilterChange} />
-              </div>
+          <div className="container mx-auto px-4 relative z-10">
+            <div className="max-w-4xl mx-auto text-center mb-8">
+              <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
+                智能机票预订
+              </h1>
+              <p className="text-muted-foreground text-lg">
+                比价更快，出行更省心，为您找到最优惠的航班
+              </p>
             </div>
 
-            {/* Results */}
-            <div className="flex-1">
-              <div className="mb-6">
-                <h2 className="text-2xl font-bold mb-1">
-                  找到 <span className="text-primary">{filteredFlights.length}</span> 个航班
-                </h2>
-                <p className="text-muted-foreground">为您精选最优惠的航班方案</p>
-              </div>
+            {/* Search Bar */}
+            <FlightSearchBar />
+          </div>
+        </section>
 
-              <div className="space-y-4">
-                {filteredFlights.map(flight => (
-                  <FlightCard key={flight.id} flight={flight} />
-                ))}
-              </div>
-
-              {filteredFlights.length === 0 && (
-                <div className="bg-card rounded-lg p-12 text-center shadow-sm">
-                  <p className="text-muted-foreground text-lg">
-                    没有找到符合条件的航班，请调整搜索条件
-                  </p>
+        {/* Results Section */}
+        <section className="py-12 flex-1">
+          <div className="container mx-auto px-4">
+            <div className="flex flex-col lg:flex-row gap-8">
+              {/* Filters Sidebar */}
+              <div className="lg:w-80 shrink-0">
+                <div className="sticky top-24">
+                  <FlightFilters filters={filters} onFilterChange={handleFilterChange} />
                 </div>
-              )}
+              </div>
+
+              {/* Results */}
+              <div className="flex-1">
+                <div className="mb-6">
+                  <h2 className="text-2xl font-bold mb-1">
+                    找到 <span className="text-primary">{filteredFlights.length}</span> 个航班
+                  </h2>
+                  <p className="text-muted-foreground">为您精选最优惠的航班方案</p>
+                </div>
+
+                <div className="space-y-4">
+                  {filteredFlights.map(flight => (
+                      <FlightCard key={flight.id} flight={flight} />
+                  ))}
+                </div>
+
+                {filteredFlights.length === 0 && (
+                    <div className="bg-card rounded-lg p-12 text-center shadow-sm">
+                      <p className="text-muted-foreground text-lg">
+                        没有找到符合条件的航班，请调整搜索条件
+                      </p>
+                    </div>
+                )}
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <Footer />
-    </div>
+        <Footer />
+      </div>
   );
 }

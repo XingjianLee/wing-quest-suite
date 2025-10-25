@@ -23,7 +23,6 @@ import CustomerService from "./pages/CustomerService";
 import OrderFlight from "./pages/OrderFlight";
 import Payment from "./pages/Payment";
 import NotFound from "./pages/NotFound";
-
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -31,7 +30,7 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <BrowserRouter>
+      <BrowserRouter basename="/wing-quest-suite">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/hero" element={<Index />} />

@@ -124,144 +124,144 @@ const BookTicket = () => {
   });
 
   return (
-    <div className="min-h-screen flex flex-col bg-background">
-      <Navbar isLoggedIn={true} />
+      <div className="min-h-screen flex flex-col bg-background">
+        <Navbar isLoggedIn={true} />
 
-      {/* Hero Section with Search */}
-      <section className="relative bg-gradient-to-br from-primary/10 via-accent/5 to-background pt-24 pb-12">
-        <div
-          className="absolute inset-0 opacity-20"
-          style={{
-            backgroundImage:
-              "url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1600&q=80')",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/60 to-background" />
+        {/* Hero Section with Search */}
+        <section className="relative bg-gradient-to-br from-primary/10 via-accent/5 to-background pt-24 pb-12">
+          <div
+              className="absolute inset-0 opacity-20"
+              style={{
+                backgroundImage:
+                    "url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1600&q=80')",
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+              }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/60 to-background" />
 
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-4xl mx-auto text-center mb-8">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
-              探索世界精彩景点
-            </h1>
-            <p className="text-muted-foreground text-lg">
-              发现热门景区，预订优惠门票，开启难忘旅程
-            </p>
-          </div>
-
-          {/* Search Bar */}
-          <Card className="max-w-5xl mx-auto p-2 shadow-lg border-primary/20">
-            <div className="flex flex-col md:flex-row gap-2">
-              <div className="flex-1 flex items-center gap-2 px-4 py-3 rounded-md bg-accent/5">
-                <MapPin className="w-5 h-5 text-muted-foreground" />
-                <Input
-                  value={destination}
-                  onChange={(e) => setDestination(e.target.value)}
-                  className="border-0 bg-transparent p-0 focus-visible:ring-0"
-                  placeholder="目的地或景区名称"
-                />
-              </div>
-              <div className="flex-1 flex items-center gap-2 px-4 py-3 rounded-md bg-accent/5">
-                <Calendar className="w-5 h-5 text-muted-foreground" />
-                <Input
-                  type="date"
-                  value={date}
-                  onChange={(e) => setDate(e.target.value)}
-                  className="border-0 bg-transparent p-0 focus-visible:ring-0"
-                  placeholder="游玩日期"
-                />
-              </div>
-              <div className="flex-1 flex items-center gap-2 px-4 py-3 rounded-md bg-accent/5">
-                <TicketIcon className="w-5 h-5 text-muted-foreground" />
-                <Select value={ticketType} onValueChange={setTicketType}>
-                  <SelectTrigger className="border-0 bg-transparent p-0 focus:ring-0">
-                    <SelectValue placeholder="门票类型" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="adult">成人票</SelectItem>
-                    <SelectItem value="child">儿童票</SelectItem>
-                    <SelectItem value="student">学生票</SelectItem>
-                    <SelectItem value="senior">老年票</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-              <div className="flex-1 flex items-center gap-2 px-4 py-3 rounded-md bg-accent/5">
-                <Users className="w-5 h-5 text-muted-foreground" />
-                <Input
-                  type="number"
-                  min="1"
-                  value={quantity}
-                  onChange={(e) => setQuantity(parseInt(e.target.value))}
-                  className="border-0 bg-transparent p-0 focus-visible:ring-0"
-                  placeholder="人数"
-                />
-              </div>
-              <Button size="lg" className="gap-2 px-8">
-                <Search className="w-5 h-5" />
-                搜索
-              </Button>
+          <div className="container mx-auto px-4 relative z-10">
+            <div className="max-w-4xl mx-auto text-center mb-8">
+              <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
+                探索世界精彩景点
+              </h1>
+              <p className="text-muted-foreground text-lg">
+                发现热门景区，预订优惠门票，开启难忘旅程
+              </p>
             </div>
-          </Card>
 
-          {/* Attraction Categories */}
-          <div className="flex flex-wrap justify-center gap-4 mt-8">
-            {attractionCategories.map((category) => (
-              <Card
-                key={category.value}
-                className={`px-6 py-4 cursor-pointer transition-all hover:shadow-md hover:scale-105 ${
-                  selectedCategories.includes(category.value)
-                    ? "bg-primary text-primary-foreground shadow-md"
-                    : "bg-card hover:bg-accent/10"
-                }`}
-                onClick={() =>
-                  setSelectedCategories((prev) =>
-                    prev.includes(category.value)
-                      ? prev.filter((c) => c !== category.value)
-                      : [...prev, category.value]
-                  )
-                }
-              >
-                <div className="text-center">
-                  <div className="text-3xl mb-2">{category.icon}</div>
-                  <div className="text-sm font-medium">{category.label}</div>
+            {/* Search Bar */}
+            <Card className="max-w-5xl mx-auto p-2 shadow-lg border-primary/20">
+              <div className="flex flex-col md:flex-row gap-2">
+                <div className="flex-1 flex items-center gap-2 px-4 py-3 rounded-md bg-accent/5">
+                  <MapPin className="w-5 h-5 text-muted-foreground" />
+                  <Input
+                      value={destination}
+                      onChange={(e) => setDestination(e.target.value)}
+                      className="border-0 bg-transparent p-0 focus-visible:ring-0"
+                      placeholder="目的地或景区名称"
+                  />
                 </div>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
+                <div className="flex-1 flex items-center gap-2 px-4 py-3 rounded-md bg-accent/5">
+                  <Calendar className="w-5 h-5 text-muted-foreground" />
+                  <Input
+                      type="date"
+                      value={date}
+                      onChange={(e) => setDate(e.target.value)}
+                      className="border-0 bg-transparent p-0 focus-visible:ring-0"
+                      placeholder="游玩日期"
+                  />
+                </div>
+                <div className="flex-1 flex items-center gap-2 px-4 py-3 rounded-md bg-accent/5">
+                  <TicketIcon className="w-5 h-5 text-muted-foreground" />
+                  <Select value={ticketType} onValueChange={setTicketType}>
+                    <SelectTrigger className="border-0 bg-transparent p-0 focus:ring-0">
+                      <SelectValue placeholder="门票类型" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="adult">成人票</SelectItem>
+                      <SelectItem value="child">儿童票</SelectItem>
+                      <SelectItem value="student">学生票</SelectItem>
+                      <SelectItem value="senior">老年票</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="flex-1 flex items-center gap-2 px-4 py-3 rounded-md bg-accent/5">
+                  <Users className="w-5 h-5 text-muted-foreground" />
+                  <Input
+                      type="number"
+                      min="1"
+                      value={quantity}
+                      onChange={(e) => setQuantity(parseInt(e.target.value))}
+                      className="border-0 bg-transparent p-0 focus-visible:ring-0"
+                      placeholder="人数"
+                  />
+                </div>
+                <Button size="lg" className="gap-2 px-8">
+                  <Search className="w-5 h-5" />
+                  搜索
+                </Button>
+              </div>
+            </Card>
 
-      {/* Results Section */}
-      <section className="py-12 flex-1">
-        <div className="container mx-auto px-4">
-          <div className="flex gap-8">
-            {/* Filters Sidebar */}
-            <div className="w-80 shrink-0 sticky top-[88px] h-fit">
-              <TicketFilters filters={filters} onFilterChange={setFilters} />
+            {/* Attraction Categories */}
+            <div className="flex flex-wrap justify-center gap-4 mt-8">
+              {attractionCategories.map((category) => (
+                  <Card
+                      key={category.value}
+                      className={`px-6 py-4 cursor-pointer transition-all hover:shadow-md hover:scale-105 ${
+                          selectedCategories.includes(category.value)
+                              ? "bg-primary text-primary-foreground shadow-md"
+                              : "bg-card hover:bg-accent/10"
+                      }`}
+                      onClick={() =>
+                          setSelectedCategories((prev) =>
+                              prev.includes(category.value)
+                                  ? prev.filter((c) => c !== category.value)
+                                  : [...prev, category.value]
+                          )
+                      }
+                  >
+                    <div className="text-center">
+                      <div className="text-3xl mb-2">{category.icon}</div>
+                      <div className="text-sm font-medium">{category.label}</div>
+                    </div>
+                  </Card>
+              ))}
             </div>
+          </div>
+        </section>
 
-            {/* Results */}
-            <div className="flex-1">
-              <div className="mb-6">
-                <h2 className="text-2xl font-bold mb-1">
-                  找到 <span className="text-primary">{filteredTickets.length}</span> 个景点
-                </h2>
-                <p className="text-muted-foreground">为您精选最热门的旅游景点</p>
+        {/* Results Section */}
+        <section className="py-12 flex-1">
+          <div className="container mx-auto px-4">
+            <div className="flex gap-8">
+              {/* Filters Sidebar */}
+              <div className="w-80 shrink-0 sticky top-[88px] h-fit">
+                <TicketFilters filters={filters} onFilterChange={setFilters} />
               </div>
 
-              <div className="space-y-6">
-                {filteredTickets.map((ticket) => (
-                  <TicketCard key={ticket.id} ticket={ticket} />
-                ))}
+              {/* Results */}
+              <div className="flex-1">
+                <div className="mb-6">
+                  <h2 className="text-2xl font-bold mb-1">
+                    找到 <span className="text-primary">{filteredTickets.length}</span> 个景点
+                  </h2>
+                  <p className="text-muted-foreground">为您精选最热门的旅游景点</p>
+                </div>
+
+                <div className="space-y-6">
+                  {filteredTickets.map((ticket) => (
+                      <TicketCard key={ticket.id} ticket={ticket} />
+                  ))}
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <Footer />
-    </div>
+        <Footer />
+      </div>
   );
 };
 
