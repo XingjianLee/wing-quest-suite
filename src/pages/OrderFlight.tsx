@@ -113,7 +113,27 @@ const OrderFlight = () => {
       description: "正在跳转到支付页面..."
     });
 
-    // 这里可以添加跳转到支付页面的逻辑
+    // 准备订单数据
+    const orderData = {
+      flightInfo: flight.airline 
+        ? `${flight.departure.airport} → ${flight.arrival.airport}` 
+        : `${flight.segments[0].departure.airport} → ${flight.segments[flight.segments.length - 1].arrival.airport}`,
+      cabinName: selectedCabinData?.name,
+      passengerCount,
+      basePrice,
+      airportFee,
+      fuelSurcharge,
+      totalPerPerson,
+      grandTotal,
+      passengers,
+      contact,
+      flight
+    };
+
+    // 跳转到支付页面
+    setTimeout(() => {
+      navigate("/payment", { state: { orderData } });
+    }, 1000);
   };
 
   if (!flight) {
